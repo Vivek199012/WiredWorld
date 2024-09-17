@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" href="/images/logo.jpg" alt="The Wired Nomad">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The Wired Nomad - Frequently Asked Questions">
+	<title>FAQ - Digital Nomad Accommodation Frequently Asked Questions</title>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8109784195848483"
+     crossorigin="anonymous"></script>
+	<link href="https://www.googletagmanager.com" rel="preconnect">
+		<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-N2NDY92YQ0"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	  gtag('config', 'G-N2NDY92YQ0');
+	</script>
+
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+	<script src="https://unpkg.com/esri-leaflet@2.0.0/dist/esri-leaflet.js"></script>
+	<script src="https://unpkg.com/esri-leaflet-vector@3.1.0/dist/esri-leaflet-vector.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-app-compat.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-functions-compat.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore-compat.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-auth-compat.js"></script>
+	<script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+	<script src="./js/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+	<link href="https://cdn.jsdelivr.net/npm/nouislider/distribute/nouislider.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/nouislider/distribute/nouislider.min.js"></script>
+	<link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css" />
+	<script src="https://unpkg.com/esri-leaflet-geocoder"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.Default.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js"></script>
+	<link rel="preconnect" href="https://unpkg.com">
+	<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+	<link rel="preconnect" href="https://www.gstatic.com">
+	<link rel="stylesheet" href="css/styles.css">
+
+
+	<style>.gm-style-moc{background-color:rgba(0,0,0,.45);pointer-events:none;text-align:center;-webkit-transition:opacity ease-in-out;-o-transition:opacity ease-in-out;transition:opacity ease-in-out}.gm-style-mot{color:white;font-family:Roboto,Arial,sans-serif;font-size:22px;margin:0;position:relative;top:50%;-o-transform:translateY(-50%);transform:translateY(-50%);-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%)}sentinel{}</style>
+	<style>.gm-style img{max-width: none;}.gm-style {font: 400 11px Roboto, Arial, sans-serif; text-decoration: none;}</style>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.css">
+	<meta name="theme-color" content="#4DBA87">
+	<meta name="apple-mobile-web-app-capable" content="no">
+	<meta name="apple-mobile-web-app-status-bar-style" content="default">
+	<meta name="apple-mobile-web-app-title" content="The Wired Nomad">
+	<meta name="msapplication-TileColor" content="#000000">
+	<meta http-equiv="origin-trial" content="As0hBNJ8h++fNYlkq8cTye2qDLyom8NddByiVytXGGD0YVE+2CEuTCpqXMDxdhOMILKoaiaYifwEvCRlJ/9GcQ8AAAB8eyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3MTk1MzI3OTksImlzU3ViZG9tYWluIjp0cnVlfQ==">
+	<meta http-equiv="origin-trial" content="AgRYsXo24ypxC89CJanC+JgEmraCCBebKl8ZmG7Tj5oJNx0cmH0NtNRZs3NB5ubhpbX/bIt7l2zJOSyO64NGmwMAAACCeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3MTk1MzI3OTksImlzU3ViZG9tYWluIjp0cnVlfQ==">
+
+<style type="text/css">
+ .mapdiv[data-v-177d06e3] {
+ width: 100%;
+ height: 100%;
+ }
+</style>
+
+<style type="text/css">
+ .info-window-wrapper[data-v-5b373d6e] {
+ display: none;
+ }
+ .mapdiv .info-window-wrapper[data-v-5b373d6e] {
+ display: inline-block;
+ }
+</style>
+
+<style type="text/css">
+ .custom-marker-wrapper[data-v-b9d5ec8a] {
+ display: none;
+ }
+ .mapdiv .custom-marker-wrapper[data-v-b9d5ec8a] {
+ display: inline-block;
+ }
+</style>
+
+<style>
+li {
+  margin-bottom: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+.toggle-content {
+  display: none;
+}
+
+.toggle-btn::before {
+  content: '\25B6'; /* Unicode character for a right-pointing triangle (caret) */
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.toggle-btn.active::before {
+  content: '\25BC'; /* Unicode character for a down-pointing triangle (caret) when active (open) */
+}
+.container {
+   margin-left: 40px; /* Adjust the indentation as needed */
+   margin-right: 40px;
+}
+
+@media (max-width: 768px) {
+    .navbar-collapse {
+        max-height: 400px; /* Adjust the height as needed */
+        overflow-y: auto; /* Add vertical scroll if necessary */
+    }
+}
+</style>
+
+</head>
+
+<body style="height:calc(100vh)">
+  <!-- Navbar starts here -->
+  <div id="app" data-v-app="">
+     <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container">
+           <a href="/" class="router-link-active router-link-exact-active navbar-brand d-flex align-items-center" aria-current="page">
+             <div width="30" height="24" class="d-flex align-items-center justify-content-center">
+               <img src="/images/logo-1.png" alt="The Wired Nomad" width="30" height="24">
+             </div>
+             <span class="h3 m-0">&nbsp; The Wired Nomad</span>
+           </a>
+           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+               <span class="navbar-toggler-icon"></span>
+           </button>
+           <div class="collapse navbar-collapse" id="navbarNav">
+               <ul class="navbar-nav ml-auto">
+                       <a class="nav-link" href="index.html">
+                           <i class="fas fa-home"></i> Home
+                       </a>
+                       <a class="nav-link" href="submit.html">
+                           <i class="fas fa-plus-square"></i> Submit
+                       </a>
+                       <a class="nav-link" href="view.html">
+                           <i class="fas fa-map-marker"></i> View
+                       </a>
+                      <a class="nav-link" href="faq.html">
+                          <i class="fas fa-question-circle"></i> FAQ
+                      </a>
+                      <a class="nav-link" href="tiers.html">
+                          <i class="fas fa-server"></i> Tiers
+                      </a>
+                      <div class="dropdown">
+                          <button class="btn btn-secondary dropdown-toggle" type="button" id="vpnDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i class="fas fa-info-circle"></i> Info
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="vpnDropdown">
+                              <a class="dropdown-item" href="vpn.html">VPN Guide</a>
+                              <a class="dropdown-item" href="comparison.html">VPN Comparison</a>
+                              <a class="dropdown-item" href="trading.html">Nomad Trading</a>
+                              <a class="dropdown-item" href="tradingclub.html">Trading Club</a>
+                              <a class="dropdown-item" href="https://docs.google.com/spreadsheets/d/1WkCWMMnjqzjLt4whpH-s73vdqdxrOJB9fTnFouStsGk/edit?usp=sharing" target="_blank">Nomad Directory</a>
+                              <a class="dropdown-item" href="nomadguides.html">Nomad Guides</a>
+
+                              <!-- Add more options here as needed -->
+                          </div>
+                      </div>
+               </ul>
+           </div>
+       </nav>
+        </div>
+     </div>
+    <main>
+      <div class="container">
+        <section class="faq-section">
+          <h1>General</h1>
+          <ul>
+            <li>
+              <h3>How does it work?</h3>
+              <p>Simply start by browsing the map or searching the database by city/country, minimum download/upload speed, etc. When you find an accommodation you like, click on the link to visit the site and book as you normally would through the corresponding booking site!</p>
+          </li>
+            <li>
+              <h3>Does The Wired Nomad provide long term accommodations?</h3>
+              <p>Yes! We actually provide short, medium, and long term rentals. Medium/long term rentals are best found by selecting "Flatio", "NomadStays", or "Nomadico" in the search section. Short term rentals are best found by selecting Airbnb and/or Vrbo. And, as always, feel free to reach out to the host for more information about long-term booking rates. </p>
+          </li>
+          <li>
+            <h3>What is 'jitter', 'ping', 'download speed' or 'upload speed'? 'Mbps'?</h3>
+            <div>
+              <button class="toggle-btn" onclick="toggleContent('download')">Download speed</button>
+              <div class="toggle-content" id="download">
+                <p>How quickly you can pull data from a server on the internet to your device. Most connections are designed to download much faster than they upload. This is because the majority of online activity, like loading web pages or streaming videos, consists of downloads. Download speed is measured in megabits per second (Mbps).</p>
+              </div>
+            </div>
+            <div>
+              <button class="toggle-btn" onclick="toggleContent('upload')">Upload speed</button>
+              <div class="toggle-content" id="upload">
+                <p>How quickly you send data from your device to the internet. A fast upload speed is helpful when sending large files via email, or in using video-chat to talk to someone else online (since you have to send your video feed to them). Upload speed is measured in megabits per second (Mbps).</p>
+              </div>
+            </div>
+            <div>
+              <button class="toggle-btn" onclick="toggleContent('ping')">Ping (or Latency)</button>
+              <div class="toggle-content" id="ping">
+                <p>Ping (or Latency) is the reaction time of your connection-how quickly your device gets a response after you've sent out a request. A low latency (fast ping) means a more responsive connection, especially in applications where timing is everything (like video games). Latency is measured in milliseconds (ms).</p>
+              </div>
+            </div>
+            <div>
+              <button class="toggle-btn" onclick="toggleContent('jitter')">Jitter</button>
+              <div class="toggle-content" id="jitter">
+                <p>Also called Packet Delay Variation (PDV), jitter frequency is a measure of the variability in ping over time. Jitter is not usually noticeable when reading text, but when streaming and gaming a high jitter can result in buffering and other interruptions. Technically, this is a measure of the average of the deviation from the mean.</p>
+              </div>
+            </div>
+            <div>
+              <button class="toggle-btn" onclick="toggleContent('mbps')">Mbps</button>
+              <div class="toggle-content" id="mbps">
+                <p>Megabits per second. A megabit is 1 million bits of information. This is a standard measure of internet speed and 1 Mbps is 1,000 times faster than 1 Kbps. Not to be confused with megabytes (MB) which is a measure of size rather than bandwidth. Because a megabyte is larger than a megabit, and to avoid confusion, MB/s is not used to denote internet speeds.</p>
+              </div>
+            </div>
+            <li>
+              <h3>What is considered "fast" internet?</h3>
+              <p>The Wired Nomad only lists download speeds >= 10 Mbps and upload speeds >= 5 Mbps. This is enough to make video calls, assuming latency and reliability are not causing issues. We recognize there are parts of the world that simply cannot provide >10 Mbps upload speeds (w/o the use of Starlink), so we do our best to include as many listings as possible for our users. Remember you can filter by minimum download and/or upload speed in the search area. </p>
+          </li>
+          <li>
+            <h3>Where does The Wired Nomad source its listings?</h3>
+            <p>We are a hybrid crowdsourced and aggregator service. Listings from Airbnb, for example, are mostly submitted by guests and hosts. Listings from our partners (ex. Flatio) are sourced with our internal aggregating service. We do NOT include "Airbnb verified" listings since these are often very unreliable. </p>
+        </li>
+            <script>
+              function toggleContent(contentId) {
+                var content = document.getElementById(contentId.toLowerCase());
+                if (content) {
+                  content.classList.toggle('toggle-content');
+                  content.classList.toggle('active');
+                } else {
+                  console.error('Element not found for ID: ' + contentId.toLowerCase());
+                }
+              }
+            </script>
+          </li>
+          </ul>
+          <h1>Functionality</h1>
+            <ul>
+            <li>
+                <h3>Why do many listings show a ping of 30ms?</h3>
+                <p>This is our placeholder value for listings that lack a latency test, but provide download & upload speeds. </p>
+            </li>
+            <li>
+                <h3>What are the green price badges?</h3>
+                <p>These are the daily rates for the accommodations, directly pulled from the corresponding booking site. Keep in mind, actual price may vary depending on your length of stay (i.e. cheaper if booked for longer). If you notice an incorrect price, please contact us so we can update it. </p>
+            </li>
+            <li>
+                <h3>What is the difference between "Gold" and "Diamond" verification badges?</h3>
+                <p>Gold verification (<i class="fas fa-check-circle verified-icon" style="color: #FFD700;"></i>) means the accommodation has a speedtest screenshot or link. Diamond verification (<i class="fas fa-check-circle verified-icon" style="color: #73E5FF;"></i>) means the accommodation is verified by The Wired Nomad's hardware device which provides periodic speed test and historical performance/reliability data.</p>
+            </li>
+            <li>
+                <h3>What does the satellite icon (<i class="fa-solid fa-satellite"></i>) mean?</h3>
+                <p>These are Airbnb listings with Starlink internet service. These show worst case scenario speeds, minimum download/upload and maximum ping as predicted by <a href="https://https://www.starlink.com/map">Starlink's Availability Map</a>, unless a verified speed test is provided.</p>
+            </li>
+            <li>
+                <h3>What about internet reliability?</h3>
+                <p>Internet reliability is only shown for diamond-badge verified listings which host our speed testing/monitoring device (still in alpha phase). Additionally, we recommend using the advanced search to filter only accommodations that provide wired LAN (Ethernet) connections to minimize any issues with spotty/unreliable Wi-Fi.</p>
+            </li>
+            <li>
+              <h3>Why is the website acting weird?</h3>
+              <p>The Wired Nomad has a 1-man development team, so maintenance and fixing bugs may take time. If you encounter issues, try clearing your browser cache and refreshing the page.</p>
+            </li>
+            </ul>
+
+            <h1>Contact</h1>
+                <ul>
+                <li>
+                    <h3>How can I submit feedback or ask questions?</h3>
+                    <p>You can reach our support team by <a href="mailto:contact@thewirednomad.com">email</a> or visiting our <a href="https://x.com/TheWiredNomad">Twitter/X</a> page.</p>
+                </li>
+            </ul>
+        </section>
+      </div>
+    </main>
+
+    <!-- PayPal Donation Button -->
+<div style="text-align: center; margin-top: 30px;">
+  <div id="donate-button-container">
+  <div id="donate-button"></div>
+  <script src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js" charset="UTF-8"></script>
+  <script>
+  PayPal.Donation.Button({
+  env:'production',
+  hosted_button_id:'EPFSJZUME3BCU',
+  image: {
+  src:'https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif',
+  alt:'Donate with PayPal button',
+  title:'PayPal - The safer, easier way to pay online!',
+  }
+  }).render('#donate-button');
+  </script>
+  </div>
+ </div>
+ <footer class="py-3 my-4">
+     <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+         <a href="/privacy" class="nav-link px-2" style="color: white;">Privacy Policy</a>
+         <a href="/terms" class="nav-link px-2" style="color: white;">Terms</a>
+     </ul>
+     <p class="text-center" style="color: white; margin-bottom: 0;">© 2024 The Wired Nomad, LLC</p>
+ </footer>
+
+</body>
+</html>

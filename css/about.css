@@ -1,0 +1,128 @@
+body {
+    font-family: Montserrat, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url(../images/gunung-dara.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center 50px;
+}
+.container {
+    max-width: auto;
+    margin: 0 auto;
+    padding: 50px;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+h1 {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+p {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+.main-content {
+    padding-top: 50px;
+}
+.footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+.topnav {
+    overflow: hidden;
+    background-color: #fff;
+    height: 50px;
+}
+.topnav a {
+    float: left;
+    display: block;
+    color: #333;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+.topnavbuttons a {
+    float: left;
+    display: block;
+    color: #000 !important;
+    font-color: #000 !important;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+@media only screen and (max-width: 414px) {
+    #map-container {
+        flex-grow: 1;
+        padding: 0;
+        margin: 0;
+        height: 70vh;
+        width: 100%;
+    }
+    body {
+        background-image: none;
+        background-color: #000;
+    }
+    h1 {
+        display: none;
+    }
+    .topnav {
+        display: none;
+    }
+    .sidenav {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 48px;
+        right: 0;
+        background-color: #fff;
+        overflow-x: hidden;
+        transition: 0.5s;
+        box-shadow: 0 10px 11px 0 rgba(33, 33, 33, 0.8);
+    }
+    .sidenav a {
+        padding: 8px 8px 8px 32px;
+        font-size: 25px;
+        color: #333;
+        display: block;
+        transition: 0.3s;
+        width: 100%;
+    }
+    .sidenav a:hover {
+        color: #008489;
+    }
+    .nav-button {
+        padding: 10px;
+        flex: 1;
+        text-align: center;
+        border: none;
+        background-color: #fff;
+    }
+    .mobile-top-nav {
+        display: flex;
+        justify-content: space-between;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        height: 10vh;
+        background-color: #fff;
+        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+    }
+    .navbar {
+        position: absolute;
+        width: 100%;
+        max-width: 100%;
+        z-index: 100;
+    }
+    desktop {
+        display: none;
+    }
+}

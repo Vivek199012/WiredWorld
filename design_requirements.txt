@@ -1,0 +1,35 @@
+-----------------------------------
+User Submission Page - Inputs:
+* Airbnb listing link
+* City (autofill to avoid typos)
+* Country (autofill to avoid typos)
+* Internet Download Speed (Mbps)
+* Internet Upload Speed (Mbps)
+* Internet Ping Speed (ms)
+* Website Used For Test (dropdown menu)
+  -> Speedtest (Ookla)
+  -> Fast.com
+  -> Speedof.me
+* Did you experience any dropouts in internet connection during your stay? (Yes/No)
+ -> If yes, "Additional Comments" paragraph text field pop-out
+* Accessible router w/ open LAN ports? (Yes/No)
+ -> If yes, "Ethernet cable length required? (Optional)"" text field pop-out
+ -----------------------------------
+User Submission Page - Outputs:
+* "Thank you for submitting!"
+-----------------------------------
+User Viewing Page:
+* Top bar of page for:
+  -> Search by City/Country
+  AND/OR
+  -> Search by minimum Download/Upload/Ping
+  AND/OR
+  -> Search by accessible router w/ open LAN ports
+* OpenStreetMap display on right half of screen using Leaflet marker cluster
+* Rectangular blocks of listings + details with scrollbar on left half of screen corresponding to map selected city
+-----------------------------------
+Nice-to-haves (also requirements...:
+* Donation box
+* Google adsense ads
+* Redirect link to /r/digitalnomads Reddit page
+* Shareable links for listings

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" href="/images/logo.jpg" alt="The Wired Nomad">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Comparison of various VPN services for digital nomads.">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>VPN Comparison - The Wired Nomad</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+  <style>.gm-style-moc{background-color:rgba(0,0,0,.45);pointer-events:none;text-align:center;-webkit-transition:opacity ease-in-out;-o-transition:opacity ease-in-out;transition:opacity ease-in-out}.gm-style-mot{color:white;font-family:Roboto,Arial,sans-serif;font-size:22px;margin:0;position:relative;top:50%;-o-transform:translateY(-50%);transform:translateY(-50%);-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%)}sentinel{}</style>
+  <style>.gm-style img{max-width: none;}.gm-style {font: 400 11px Roboto, Arial, sans-serif; text-decoration: none;}</style>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.css">
+  <meta name="theme-color" content="#4DBA87">
+  <meta name="apple-mobile-web-app-capable" content="no">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="The Wired Nomad">
+  <meta name="msapplication-TileColor" content="#000000">
+  <meta http-equiv="origin-trial" content="As0hBNJ8h++fNYlkq8cTye2qDLyom8NddByiVytXGGD0YVE+2CEuTCpqXMDxdhOMILKoaiaYifwEvCRlJ/9GcQ8AAAB8eyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3MTk1MzI3OTksImlzU3ViZG9tYWluIjp0cnVlfQ==">
+  <meta http-equiv="origin-trial" content="AgRYsXo24ypxC89CJanC+JgEmraCCBebKl8ZmG7Tj5oJNx0cmH0NtNRZs3NB5ubhpbX/bIt7l2zJOSyO64NGmwMAAACCeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3MTk1MzI3OTksImlzU3ViZG9tYWluIjp0cnVlfQ==">
+
+  <style>
+    header {
+        background-color: #000;
+        color: #fff;
+        text-align: center;
+        padding: 20px 0;
+    }
+
+    h1 {
+        font-size: 36px;
+        margin: 0;
+    }
+
+    article {
+        max-width: 1000px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        overflow-y: auto; /* This enables scrolling for the article section */
+    }
+
+    h2 {
+        font-size: 24px;
+        margin-top: 20px;
+        margin-bottom: 15px;
+    }
+
+    p {
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+
+    a {
+        color: #0077cc;
+        text-decoration: none;
+    }
+
+    ul {
+        list-style: disc;
+        margin-left: 20px;
+    }
+
+    h3 {
+        font-size: 20px;
+        margin-top: 15px;
+        margin-bottom: 10px;
+    }
+
+    h4 {
+        font-size: 18px;
+        margin-top: 15px;
+        margin-bottom: 10px;
+    }
+
+    pre code {
+        display: block;
+        padding: 10px;
+        background-color: #f5f5f5;
+        font-size: 14px;
+        border-radius: 5px;
+    }
+
+    code {
+        font-family: Consolas, monospace;
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Navbar starts here -->
+  <div id="app" data-v-app="">
+     <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container">
+           <a href="/" class="router-link-active router-link-exact-active navbar-brand d-flex align-items-center" aria-current="page">
+             <div width="30" height="24" class="d-flex align-items-center justify-content-center">
+               <img src="/images/logo-1.png" alt="The Wired Nomad" width="30" height="24">
+             </div>
+             <span class="h3 m-0">&nbsp; The Wired Nomad</span>
+           </a>
+           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+               <span class="navbar-toggler-icon"></span>
+           </button>
+           <div class="collapse navbar-collapse" id="navbarNav">
+               <ul class="navbar-nav ml-auto">
+                       <a class="nav-link" href="index.html">
+                           <i class="fas fa-home"></i> Home
+                       </a>
+                       <a class="nav-link" href="submit.html">
+                           <i class="fas fa-plus-square"></i> Submit
+                       </a>
+                       <a class="nav-link" href="view.html">
+                           <i class="fas fa-map-marker"></i> View
+                       </a>
+                      <a class="nav-link" href="faq.html">
+                          <i class="fas fa-question-circle"></i> FAQ
+                      </a>
+                      <a class="nav-link" href="tiers.html">
+                          <i class="fas fa-server"></i> Tiers
+                      </a>
+                      <div class="dropdown">
+                          <button class="btn btn-secondary dropdown-toggle" type="button" id="vpnDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i class="fas fa-info-circle"></i> Info
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="vpnDropdown">
+                              <a class="dropdown-item" href="vpn.html">VPN Guide</a>
+                              <a class="dropdown-item" href="comparison.html">VPN Comparison</a>
+                              <a class="dropdown-item" href="trading.html">Nomad Trading</a>
+                              <a class="dropdown-item" href="tradingclub.html">Trading Club</a>
+                              <a class="dropdown-item" href="https://docs.google.com/spreadsheets/d/1WkCWMMnjqzjLt4whpH-s73vdqdxrOJB9fTnFouStsGk/edit?usp=sharing" target="_blank">Nomad Directory</a>
+                              <a class="dropdown-item" href="nomadguides.html">Nomad Guides</a>
+                          </div>
+                      </div>
+               </ul>
+           </div>
+       </nav>
+    </div>
+    <header>
+        <h1>Wireguard vs. Tailscale, key differences and which VPN to use</h1>
+    </header>
+    <article>
+    <p>Often, people are interested for a variety of reasons to avoid the use of a commercial VPN like NordVPN. Some reasons include security, data privacy, control, and cost. Hosting your own residential VPN server at home may be the preferred or only option for some, and in their research they come across three VPN options: OpenVPN, Wireguard, and Tailscale (Wireguard but with a twist). Immediately the OpenVPN protocol is usually discarded due to its vastly <a href="https://www.gl-inet.com/products/compare/">inferior performance to Wireguard</a> in throughput tests in addition to being less secure/transparent. This leaves us with Wireguard and Tailscale. </p>
+
+    <h2>Why use Wireguard over Tailscale?</h2>
+
+    <p>Wireguard, released in 2020, is easily the most popular and best performing VPN protocol to self-host at home, and with the advent of GL.iNet routers (based on openWRT), it has become extremely easy to setup (in a matter of minutes or less!). Wireguard is completely FREE, so that means if you are a <em>business</em> that wants to implement Wireguard, you will not be faced with the free tier client limitations of Tailscale. Wireguard also involves NO 3rd party unlike Tailscale which does route your traffic (albeit encrypted). Wireguard is also more fully customizable. For example, if you are concerned about DNS leaking, you can tweak the “Allowed IPs” section to ensure both IPv4 and IPv6 addresses are tunneled.</p>
+
+    <h2>Why use Tailscale over Wireguard?</h2>
+
+    <p>First, to be clear, Tailscale IS Wireguard but wrapped in its own client application. Connections are still done using Wireguard, but authentications, settings, and relay server management is done using proprietary Tailscale code. That said, Tailscale has some significant advantages over bare Wireguard in specific scenarios. First, if the Wireguard server port you have chosen (default: 51820) is blocked by the firewall of the network you connect to while <i>traveling</i>, you will not be able to connect to your VPN. With Tailscale, it will find a way. The other scenario is if your home internet source (your ISP) at your <i>server</i> location uses <strong>carrier grade NAT (CGNAT)</strong>, you will NOT be able to use bare Wireguard to host the VPN server (unless you use a 3rd party VPS such as Oracle cloud or another workaround). Again, this is where Tailscale comes to the rescue with its NAT hole-punching and its encrypted, public <a href="https://tailscale.com/kb/1232/derp-servers">DERP relay servers</a>. In this case, your internet traffic will be routed through one of Tailscale’s worldwide relay servers depending on proximity. The downside is that these servers are throttled since they must accommodate many other users in addition to you. Therefore, the internet speed will be significantly reduced (often &lt;10 Mbps up/down) and latency may also increase some. Don’t worry though, your IP will still show as your home Tailscale “exit node” IP, but there is a little more uncertainty in performance and full tunneling. Despite not having a direct connection in this particular scenario, at least Tailscale will still enable you to have a connection back to your home server (to simply route your internet traffic, gain access to NAS, etc.) while Wireguard would not. Another advantage of Tailscale is that it does not require us to port forward, nor do we need our own dynamic DNS service for a non-static public IP at the server location. Tailscale takes care of all of this!</p>
+    <center>
+    <img src="https://cdn-images-1.medium.com/max/2088/1*ubOQWcqmBXmhN4j-5Y3ZzA.png" alt="Source: [https://www.netmaker.io/resources/tailscale-vs-wireguard](https://www.netmaker.io/resources/tailscale-vs-wireguard)" style="max-width: 50%; height: auto; margin-top: 10px; margin-bottom: 10px;">
+
+    <h2>A data point for Wireguard vs. Tailscale internet speed performance</h2>
+
+    <img src="https://cdn-images-1.medium.com/max/2000/1*lOa9ZynpV3RqLNPtCGp51Q.jpeg" alt="No VPN" style="max-width: 50%; height: auto; margin-top: 10px; margin-bottom: 10px;">
+    <p>Local LTE connection (No VPN)</p>
+
+    <img src="https://cdn-images-1.medium.com/max/2000/1*_Ng3IJNA1EeDqiFAm2ogZQ.jpeg" alt="Wireguard only" style="max-width: 50%; height: auto; margin-top: 10px; margin-bottom: 10px;">
+    <p>Connected to Wireguard server on GL.iNet Brume 2</p>
+
+    <img src="https://cdn-images-1.medium.com/max/2000/1*xJunPlDwwMkZvrxCNH-IHQ.jpeg" alt="Tailscale + self-hosted DERP relay server" style="max-width: 50%; height: auto; margin-top: 10px; margin-bottom: 10px;">
+    <p>Connected to Tailscale exit node and DERP relay server on Raspberry Pi 4B</p>
+    </center>
+    <ul>
+    <li>Verizon LTE connection used on iPhone SE 3rd gen. I live in a rural area so the variance in traffic on this tower’s antenna is going to be fairly minimal. Still uncontrolled and using Ookla instead of iperf.</li>
+    <li>Also note that I am running my <em>own</em> DERP relay server on the same Raspberry Pi which my exit node is hosted on. No public relay server was used. This is a bit complex to setup and documentation is minimal. I used <a href="https://sleeplessbeastie.eu/2023/01/06/how-to-install-tailscale-derp-server/">this</a> guide.</li>
+    <li>GL.iNet Brume 2 (Wireguard) plugged into LAN 2 of Xfinity router and Pi 4B (Tailscale exit node/DERP relay) plugged into LAN 1.</li>
+    <li>Server location is ~7 miles down the road</li>
+    </ul>
+
+    <p>Server location internet speeds *without* any VPN: ~800 Mbps down, ~24 Mbps up</p>
+
+    <p>So, as you can see the download speed clearly does not exceed 24 Mbps due to the upload speed limitation of the server location’s internet. Still, the similarity in speeds between bare Wireguard and Tailscale with self hosted relay server is impressive! Without the self-hosted Tailscale DERP relay server though, I would probably be routed through Tailscale’s public NYC server and my speeds would have suffered immensely.</p>
+
+    <h2>Which one is right for me?</h2>
+
+    <p>If you do not have CGNAT at the location you will host your VPN server, then Wireguard is undoubtedly the best option to go with. To know if your ISP uses CGNAT, you can either call them and ask or check to see if you are able to port forward from your router on your own. With CGNAT, you would have to call your ISP to request port forwarding to which they may respond “no”.</p>
+
+    <p>If you do have CGNAT (double NAT) at your server location, then Tailscale is basically your only/best option. Tailscale is also a better option for those who are maybe more uncomfortable with networking (ex. port forwarding).</p>
+
+    <p>Whichever you choose, using a <strong>GL.iNet router</strong> <strong>reduces the complexity </strong>significantly. These routers have both, Wireguard and Tailscale, built into their router devices. However, the built-in Tailscale application is only meant to be used as a client (additionally it is only in beta), though you CAN manually enable the exit node to use it as a server.</p>
+
+    <p>Lastly, there is no reason why you can’t <strong>use both!</strong> Redundancy is always a good thing. I personally use <strong>Wireguard for my primary VPN</strong> and my <strong>Tailscale exit node + self-hosted DERP relay server is my backup</strong> in case my Wireguard router goes down for any reason. My 3rd backup is another Tailscale exit node at an entirely different location, though it has much slower speeds due to being a Mi-Fi device connection.</p>
+
+    <p> To give it a go yourself, check out the <a href="https://thewirednomad.com/vpn">VPN Guide</a> page. </p>
+
+    <p>For paid assistance in self-hosting your own VPN, see the Silver Tier on my website page here: <a href="https://thewirednomad.com/tiers">https://thewirednomad.com/tiers</a></p>
+
+    <p>Thanks for reading!</p>
+  </article>
+    </body>
+    			<!-- PayPal Donation Button -->
+    	<div style="text-align: center; margin-top: 30px;">
+    		<div id="donate-button-container">
+    		<div id="donate-button"></div>
+    		<script src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js" charset="UTF-8"></script>
+    		<script>
+    		PayPal.Donation.Button({
+    		env:'production',
+    		hosted_button_id:'EPFSJZUME3BCU',
+    		image: {
+    		src:'https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif',
+    		alt:'Donate with PayPal button',
+    		title:'PayPal - The safer, easier way to pay online!',
+    		}
+    		}).render('#donate-button');
+    		</script>
+    		</div>
+    	 </div>
+       <footer class="py-3 my-4">
+           <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+               <a href="/privacy" class="nav-link px-2" style="color: black;">Privacy Policy</a>
+               <a href="/terms" class="nav-link px-2" style="color: black;">Terms</a>
+           </ul>
+           <p class="text-center" style="color: black; margin-bottom: 0;">© 2024 The Wired Nomad, LLC</p>
+       </footer>
+
+</html>

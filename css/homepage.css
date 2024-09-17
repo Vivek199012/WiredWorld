@@ -1,0 +1,390 @@
+
+.main-home-bg {
+  background-image: linear-gradient(to right, rgb(234, 244, 232) , rgb(249, 249, 249));
+
+}
+
+.homePagePlatformsDropdown{
+    background-color: white;
+    border: #ccc 1px solid; 
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 50px;    
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    max-width: 50px;
+    height: 100%;
+  }
+
+.homePagePlatformsDropdown:hover{
+    background-color: #f1f1f1;
+    cursor: pointer;
+  }
+
+@media screen and (max-width: 600px)
+{
+    .homePagePlatformsDropdown {
+   
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+        border-bottom-left-radius: 0px;
+      
+    }
+    
+}
+
+
+#searchbar {
+    margin-bottom: 0px;
+    margin-top: 40px;
+}
+
+.form {
+    border: 1px solid #ccc;
+    padding-left: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 100%;
+    max-width: 450px;
+    border-left: none ;
+}
+
+@media screen and (max-width: 600px)
+{
+    .form {
+      
+        border-top-right-radius: 12px;
+      
+    }
+    
+}
+.form:focus {
+    outline: none;
+}
+
+.searchbar {
+
+    width: 100%;
+}
+
+.infoDropdown {
+  background-image: linear-gradient(to right, rgb(139, 217, 115) , rgb(93, 190, 69));
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-radius: 10px;
+  border: none;
+  margin-top: 4px;
+
+}
+
+.searchButton {
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border: none;
+ 
+    padding-left: 20px;
+    padding-right: 20px;
+    color: white;
+    background-image: linear-gradient(to right, rgb(61, 169, 28) , rgb(34, 136, 9));
+    
+}
+
+
+
+@media screen and (max-width: 650px)
+{
+    .searchButton {
+        width: 400px;
+        border-radius: 12px;
+        border: none;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        color: white;
+        margin-top: 20px;
+    }
+    
+}
+
+.searchButton:hover {
+    background-image: linear-gradient(to right, rgb(38, 116, 14) , rgb(29, 96, 12));
+    cursor: pointer;
+}
+
+#min-upload {
+    width: 70px;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    outline: none;
+    padding: 4px;
+
+}
+#min-download {
+    width: 70px;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    outline: none;
+    padding: 4px;
+}
+
+
+.autocomplete-items {
+    position: absolute;
+    border: 1px solid #ccc;
+    border-top: none;
+    z-index: 99;
+    width: 100%;
+    max-width: 420px;
+    background-color: white;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+.green-text {
+    color: green;
+    text-decoration: underline;
+}
+
+.platformsDropdownAndInput {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    min-width: 400px;
+
+}
+
+@media screen and (max-width: 600px)
+{
+    .platformsDropdownAndInput {
+        min-width: 1px;
+        width: 100%;
+
+    }
+    
+}
+
+
+.minUploadSpeedFilter {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 100px;
+    padding-left: 4px;
+    padding-right: 4px;
+    align-items: center;
+    font-size: 13px;   
+    height: 100%;
+    overflow-wrap: break-word; 
+    border-top:  1px solid #ccc;
+    border-bottom:  1px solid #ccc;
+    background-color: white;
+
+    
+}
+
+.minUploadSpeedFilter:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 700px) and (min-width: 600px)
+{
+    .minUploadSpeedFilter {
+        border-right:  1px solid #ccc;
+    }
+}
+
+   
+@media screen and (max-width: 600px)
+{
+    .minUploadSpeedFilter {
+     
+        max-width: 600px;
+        width: 100%;
+        border-top: none;
+        border-bottom: none;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        font-size: 15px;
+        border-bottom-left-radius: 12px;
+        border-bottom-right-radius: 12px;
+   
+        
+      
+    }
+
+    #minUploadDropdown {
+        width: 100%;
+        max-width: 522px;
+        border-top: none;
+        border-bottom: none;
+    
+        border-left: 1px solid #ccc;
+        border-right: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        border-bottom-left-radius: 12px;
+        border-bottom-right-radius: 12px;
+
+    }
+    
+}
+
+.mainContentArea {
+    padding-top: 100px;
+}
+
+@media screen and (max-width: 600px)
+{
+    .mainContentArea {
+        padding-top: 40px;
+    }
+  
+}
+
+
+.setMBPSButton {
+    background-image: linear-gradient(to right, rgb(61, 169, 28) , rgb(34, 136, 9));
+    color: white; 
+    border-radius: 12px; 
+    padding-right: 10px; 
+    padding-left: 10px; 
+    border: none;
+    margin-top: 10px; 
+    width: 80px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.setMBPSButton:hover {
+  background-image: linear-gradient(to right, rgb(38, 116, 14) , rgb(29, 96, 12));
+  cursor: pointer;
+}
+
+.seeListingsMapButton {
+  padding-left: 43px;
+  padding-right: 43px; 
+  background-image: linear-gradient(to right, rgb(61, 169, 28) , rgb(34, 136, 9));
+}
+
+.seeListingsMapButton:hover {
+  background-image: linear-gradient(to right, rgb(38, 116, 14) , rgb(29, 96, 12));
+  cursor: pointer;
+}
+
+.submitSpeedTestButton:hover{
+  background-image: linear-gradient(to right, rgb(61, 169, 28) , rgb(34, 136, 9));
+  cursor: pointer;
+}
+.poppins-thin {
+    font-family: "Poppins", sans-serif;
+    font-weight: 100;
+    font-style: normal;
+  }
+  
+  .poppins-extralight {
+    font-family: "Poppins", sans-serif;
+    font-weight: 200;
+    font-style: normal;
+  }
+  
+  .poppins-light {
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+  }
+  
+  .poppins-regular {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .poppins-medium {
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+  }
+  
+  .poppins-semibold {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    line-height: 1.2;
+  }
+  
+  .poppins-bold {
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+  }
+  
+  .poppins-extrabold {
+    font-family: "Poppins", sans-serif;
+    font-weight: 800;
+    font-style: normal;
+  }
+  
+  .poppins-black {
+    font-family: "Poppins", sans-serif;
+    font-weight: 900;
+    font-style: normal;
+  }
+  
+  .poppins-thin-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 100;
+    font-style: italic;
+  }
+  
+  .poppins-extralight-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 200;
+    font-style: italic;
+  }
+  
+  .poppins-light-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-style: italic;
+  }
+  
+  .poppins-regular-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: italic;
+  }
+  
+  .poppins-medium-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: italic;
+  }
+  
+  .poppins-semibold-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: italic;
+  }
+  
+  .poppins-bold-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-style: italic;
+  }
+  
+  .poppins-extrabold-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 800;
+    font-style: italic;
+  }
+  
+  .poppins-black-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 900;
+    font-style: italic;
+  }
+  

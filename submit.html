@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" href="/images/logo.jpg" alt="The Wired Nomad">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Submit remote work accommodations with accompanying speed test.">
+    <title>Submit Digital Nomad Listing with Internet Speeds</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8109784195848483" crossorigin="anonymous"></script>
+    <link href="https://www.googletagmanager.com" rel="preconnect">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-N2NDY92YQ0"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-N2NDY92YQ0');
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/esri-leaflet@2.0.0/dist/esri-leaflet.js"></script>
+    <script src="https://unpkg.com/esri-leaflet-vector@3.1.0/dist/esri-leaflet-vector.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-functions-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-auth-compat.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <script src="./js/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link href="https://cdn.jsdelivr.net/npm/nouislider/distribute/nouislider.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/nouislider/distribute/nouislider.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css" />
+    <script src="https://unpkg.com/esri-leaflet-geocoder"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.Default.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js"></script>
+    <link rel="preconnect" href="https://unpkg.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://www.gstatic.com">
+    <link rel="stylesheet" href="css/submit.css">
+
+    <style>
+        .ui-helper-hidden-accessible {
+        display: none !important;
+        }
+        
+        .gm-style-moc {
+            background-color:rgba(0,0,0,.45);
+            pointer-events:none;
+            text-align:center;
+            -webkit-transition:opacity ease-in-out;
+            -o-transition:opacity ease-in-out;
+            transition:opacity ease-in-out
+        }
+        .gm-style-mot {
+            color:white;
+            font-family:Roboto,Arial,sans-serif;
+            font-size:22px;
+            margin:0;
+            position:relative;
+            top:50%;
+            -o-transform:translateY(-50%);
+            transform:translateY(-50%);
+            -webkit-transform:translateY(-50%);
+            -ms-transform:translateY(-50%)
+        }
+        .gm-style img {
+            max-width: none;
+        }
+        .gm-style {
+            font: 400 11px Roboto, Arial, sans-serif;
+            text-decoration: none;
+        }
+        .popup-container {
+            position: relative;
+        }
+        .popup-text {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+            word-wrap: break-word; /* Ensure long words break and wrap onto the next line */
+        }
+        .ui-menu {
+            list-style-type: none; /* Remove bullets */
+            background-color: white; /* Set background color */
+            border: 1px solid #ccc; /* Add border */
+            padding: 0; /* Remove default padding */
+            max-height: 200px; /* Limit height to avoid scrolling */
+            max-width: 200px;
+            overflow-y: auto; /* Enable vertical scrolling if needed */
+        }
+        .ui-menu-item {
+            padding: 8px 12px; /* Add padding */
+            cursor: pointer; /* Change cursor to pointer */
+        }
+        .ui-menu-item-wrapper {
+            opacity: 0.8; /* Adjust opacity */
+        }
+        .ui-menu-item-wrapper:hover {
+            background-color: #f0f0f0; /* Change background color on hover */
+        }
+    </style>
+</head>
+<body style="height:calc(100vh)">
+
+<div id="app" data-v-app="">
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container">
+            <a href="/" class="router-link-active router-link-exact-active navbar-brand d-flex align-items-center" aria-current="page">
+                <div width="30" height="24" class="d-flex align-items-center justify-content-center">
+                    <img src="/images/logo-1.png" alt="The Wired Nomad" width="30" height="24">
+                </div>
+                <span class="h3 m-0">&nbsp; The Wired Nomad</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <a class="nav-link" href="index.html">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                    <a class="nav-link" href="submit.html">
+                        <i class="fas fa-plus-square"></i> Submit
+                    </a>
+                    <a class="nav-link" href="view.html">
+                        <i class="fas fa-map-marker"></i> View
+                    </a>
+                    <a class="nav-link" href="faq.html">
+                        <i class="fas fa-question-circle"></i> FAQ
+                    </a>
+                    <a class="nav-link" href="tiers.html">
+                        <i class="fas fa-server"></i> Tiers
+                    </a>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="vpnDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-info-circle"></i> Info
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="vpnDropdown">
+                            <a class="dropdown-item" href="vpn.html">VPN Guide</a>
+                            <a class="dropdown-item" href="comparison.html">VPN Comparison</a>
+                            <a class="dropdown-item" href="trading.html">Nomad Trading</a>
+                            <a class="dropdown-item" href="tradingclub.html">Trading Club</a>
+                            <a class="dropdown-item" href="https://docs.google.com/spreadsheets/d/1WkCWMMnjqzjLt4whpH-s73vdqdxrOJB9fTnFouStsGk/edit?usp=sharing" target="_blank">Nomad Directory</a>
+                            <a class="dropdown-item" href="nomadguides.html">Nomad Guides</a>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
+
+<div class="container">
+    <!--OST Widget code start-->
+    <div style="text-align: center;">
+        <div style="min-height: 250px;">
+            <div style="width: 100%; height: 0; padding-bottom: 1%; padding-top: 1%; position: relative;">
+                <iframe
+                        id="speedtest"
+                        style="border: none; position: absolute; top: 130px; left: 50%; transform: translate(-50%, -50%); width: 60%; height: 20%; min-height: 250px; border: none; overflow: hidden !important;"
+                        src="//openspeedtest.com/speedtest"
+                ></iframe>
+            </div>
+        </div>
+    </div>
+    <!-- OST Widget code end -->
+</div>
+
+<div class="form-container">
+    <p>
+        <input type="hidden" id="vpn-hidden-input" name="vpn-hidden-input" value="" />
+        <input class="checkbox" type="checkbox" id="vpn" name="vpn"><b>NOTE:</b> Check this if you used a VPN during the test.
+    </p>
+    <h1>Submit Internet Speeds</h1>
+    <form id="contact-form">
+        <div class="form-row">
+            <label for="link">Listing Link: </label>
+            <input type="text" id="link" name="link" class="long-input" required />
+            <i class="fas fa-question-circle" style="color: blue; cursor: pointer;" onclick="showPopup2()"></i>
+            <div id="popupText2" class="popup-text">
+                We currently accept only Airbnb listing links. To submit from another external/direct booking platform, see pricing on our <a href="https://thewirednomad.com/tiers" target="_blank" style="color: blue; text-decoration: underline;">Tiers</a> page.
+            </div>
+        </div>
+
+        <div id="loading-indicator" style="display: none;">
+            <div class="spinner"></div>
+            <p>Submitting...</p>
+        </div>
+
+        <div class="form-row">
+            <label for="cityCountry">City/Country: </label>
+            <input id="cityCountry">
+            <input type="hidden" id="city">
+            <input type="hidden" id="country">
+            <input type="hidden" id="latitude" name="latitude">
+            <input type="hidden" id="longitude" name="longitude">
+            <i class="fas fa-question-circle" style="color: blue; cursor: pointer;" onclick="showPopup3()"></i>
+            <div id="popupText3" class="popup-text">
+                Begin typing the city name then select from the drop-down menu whichever matches closest (usually the first entry).
+            </div>
+        </div>
+
+        <div class="form-row">
+            <label for="internet-download-speed">Internet Download Speed</label>
+            <input id="internet-download-speed" name="internet-download-speed" required />
+            <span class="unit"> (Mbps)</span>
+        </div>
+
+        <div class="form-row">
+            <label for="internet-upload-speed">Internet Upload Speed: </label>
+            <input id="internet-upload-speed" name="internet-upload-speed" required />
+            <span class="unit"> (Mbps)</span>
+        </div>
+
+        <div class="form-row">
+            <label for="internet-ping-speed">Internet Ping Speed: </label>
+            <input id="internet-ping-speed" name="internet-ping-speed" required />
+            <span class="unit"> (ms)</span>
+        </div>
+
+        <div class="form-row">
+            <label for="website-used"><br>Website Used For Test: </label>
+            <select id="website-used" name="website-used" required>
+                <option value="">Select</option>
+                <option value="openspeed">OpenSpeedTest (min. stable speed)</option>
+                <option value="speedtest">Speedtest Ookla (fastest, peak speed)</option>
+                <option value="fast">Fast.com (fastest, peak speed)</option>
+                <option value="speedofme">Speedof.me</option>
+            </select>
+        </div>
+
+        <div class="form-row">
+            <label for="link-to-test">(Optional) Link to test: </label>
+            <input type="text" id="link-to-test" name="link-to-test" class="short-input" />
+            <span style="white-space: nowrap; margin-left: 10px;">
+                (adds <i class="fas fa-check-circle" style="color: gold;"></i> to listing)
+                <i class="fas fa-question-circle" style="color: blue; cursor: pointer;" onclick="showPopup1()"></i>
+            </span>
+        </div>
+
+        <div id="popupText1" class="popup-text">
+            Can't find a link to share? Upload your speed test to <a href="https://imgur.com" target="_blank" style="color: blue; text-decoration: underline;">imgur.com</a> and paste.
+        </div>
+
+        <script>
+            function showPopup1() {
+                var popup = document.getElementById("popupText1");
+                popup.style.display = "block";
+                setTimeout(function() {
+                    popup.style.display = "none";
+                }, 6000);
+            }
+
+            function showPopup2() {
+                var popup = document.getElementById("popupText2");
+                popup.style.display = "block";
+                setTimeout(function() {
+                    popup.style.display = "none";
+                }, 6000);
+            }
+
+            function showPopup3() {
+                var popup = document.getElementById("popupText3");
+                popup.style.display = "block";
+                setTimeout(function() {
+                    popup.style.display = "none";
+                }, 6000);
+            }
+						function showDropoutsPopup() {
+						    Swal.fire({
+						        title: 'Error',
+						        text: 'Please select whether you experienced any dropouts during your stay.',
+						        icon: 'error',
+						        confirmButtonColor: '#3085d6'
+						    });
+						}
+        </script>
+
+        <div class="form-row">
+            <label for="dropouts">Did you experience any dropouts during your stay?</label>
+            <div class="radio-container">
+                <input type="radio" id="dropouts-yes" name="dropouts" value="yes" required />
+                <label class="radio-button" for="dropouts-yes">Yes</label>
+                <input type="radio" id="dropouts-no" name="dropouts" value="no" required />
+                <label class="radio-button" for="dropouts-no">No</label>
+            </div>
+        </div>
+
+        <div class="form-row" id="additional-comments-container" style="display: none">
+            <label for="additional-comments">Additional Comments</label>
+            <textarea id="additional-comments" name="additional-comments"></textarea>
+        </div>
+
+        <div class="form-row">
+            <label for="open-lan-ports">Accessible router with open LAN ports? </label>
+            <div class="radio-container">
+                <input type="radio" id="open-lan-ports-yes" name="open-lan-ports" value="yes" required />
+                <label class="radio-button" for="open-lan-ports-yes">Yes</label>
+                <input type="radio" id="open-lan-ports-no" name="open-lan-ports" value="no" required />
+                <label class="radio-button" for="open-lan-ports-no">No/Idk</label>
+            </div>
+        </div>
+
+        <div class="form-row" id="ethernet-length-container" style="display: none">
+            <label for="ethernet-length">Ethernet Cable Length Required (Optional)</label>
+            <input type="text" id="ethernet-length" name="ethernet-length" />
+        </div>
+
+        <div class="form-row">
+            <label for="guest-host">I am a: </label>
+            <div class="radio-container">
+                <input type="radio" id="guest" name="guest-host" value="guest" required />
+                <label class="radio-button" for="guest">Guest</label>
+                <input type="radio" id="host" name="guest-host" value="host" required />
+                <label class="radio-button" for="host">Host</label>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <button id="submit-button" type="submit" class="submit-button">Submit</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    $(function () {
+        $("#cityCountry").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(request.term)}.json`,
+                    dataType: "json",
+                    data: {
+                        access_token: 'pk.eyJ1IjoidGhld2lyZWRub21hZCIsImEiOiJjbG11a2YybGwwZGp5MmxvYnpodDZtb3p5In0.KX1StDO93qAeQOSeGiXe-w'
+                    },
+                    success: function (data) {
+                        response($.map(data.features, function (item) {
+                            let city = item.text;
+                            let countryContext = item.context.find(context => context.id.includes('country'));
+                            let country = countryContext ? countryContext.text : '';
+                            return {
+                                label: `${city}, ${country}`,
+                                value: `${city}, ${country}`,
+                                city: city,
+                                country: country,
+                                coordinates: item.geometry.coordinates
+                            };
+                        }));
+                    }
+                });
+            },
+            minLength: 2,
+            select: function (event, ui) {
+                if (ui.item.country.toLowerCase() === 'türkiye') {
+                    ui.item.country = 'Turkey';
+                }
+                $("#city").val(ui.item.city);
+                $("#country").val(ui.item.country);
+                $("#latitude").val(ui.item.coordinates[1]);
+                $("#longitude").val(ui.item.coordinates[0]);
+            }
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var dropoutsYes = document.getElementById('dropouts-yes');
+        var dropoutsNo = document.getElementById('dropouts-no');
+        var dropoutsYesLabel = document.querySelector('label[for=dropouts-yes]');
+        var dropoutsNoLabel = document.querySelector('label[for=dropouts-no]');
+        var additionalCommentsContainer = document.getElementById('additional-comments-container');
+
+        dropoutsYes.addEventListener('change', function () {
+            additionalCommentsContainer.style.display = dropoutsYes.checked ? 'block' : 'none';
+            dropoutsYesLabel.classList.toggle('checked', dropoutsYes.checked);
+            dropoutsNoLabel.classList.toggle('checked', !dropoutsYes.checked);
+        });
+
+        dropoutsNo.addEventListener('change', function () {
+            additionalCommentsContainer.style.display = dropoutsYes.checked ? 'block' : 'none';
+            dropoutsYesLabel.classList.toggle('checked', dropoutsYes.checked);
+            dropoutsNoLabel.classList.toggle('checked', !dropoutsYes.checked);
+        });
+
+        var openLanPortsYes = document.getElementById('open-lan-ports-yes');
+        var openLanPortsNo = document.getElementById('open-lan-ports-no');
+        var openLanPortsYesLabel = document.querySelector('label[for=open-lan-ports-yes]');
+        var openLanPortsNoLabel = document.querySelector('label[for=open-lan-ports-no]');
+        var ethernetLengthContainer = document.getElementById('ethernet-length-container');
+
+        openLanPortsYes.addEventListener('change', function () {
+            ethernetLengthContainer.style.display = openLanPortsYes.checked ? 'block' : 'none';
+            openLanPortsYesLabel.classList.toggle('checked', openLanPortsYes.checked);
+            openLanPortsNoLabel.classList.toggle('checked', !openLanPortsYes.checked);
+        });
+
+        openLanPortsNo.addEventListener('change', function () {
+            ethernetLengthContainer.style.display = openLanPortsYes.checked ? 'block' : 'none';
+            openLanPortsYesLabel.classList.toggle('checked', openLanPortsYes.checked);
+            openLanPortsNoLabel.classList.toggle('checked', !openLanPortsYes.checked);
+        });
+
+        var vpnCheckbox = document.getElementById('vpn');
+        var vpnHiddenInput = document.getElementById('vpn-hidden-input');
+        vpnCheckbox.addEventListener('change', function () {
+            vpnHiddenInput.value = vpnCheckbox.checked ? 'yes' : 'no';
+        });
+
+        var guest = document.getElementById('guest');
+        var host = document.getElementById('host');
+        var guestLabel = document.querySelector('label[for=guest]');
+        var hostLabel = document.querySelector('label[for=host]');
+
+        guest.addEventListener('change', function () {
+            guestLabel.classList.toggle('checked', guest.checked);
+            hostLabel.classList.toggle('checked', !guest.checked);
+        });
+
+        host.addEventListener('change', function () {
+            guestLabel.classList.toggle('checked', guest.checked);
+            hostLabel.classList.toggle('checked', !guest.checked);
+        });
+
+        const minimalConfig = {
+            projectId: "thewirednomad"
+        };
+
+        firebase.initializeApp(minimalConfig);
+        const getFirebaseConfig = firebase.functions().httpsCallable('getFirebaseConfig');
+
+        function clearRadioButtons() {
+            var form = document.getElementById('contact-form');
+            var radioButtons = form.querySelectorAll('input[type="radio"]');
+            radioButtons.forEach(function (radioButton) {
+                radioButton.checked = false;
+                radioButton.nextElementSibling.classList.remove('checked');
+            });
+        }
+
+        getFirebaseConfig().then((result) => {
+            const firebaseConfig = result.data.firebaseConfig;
+            const myApp = firebase.initializeApp(firebaseConfig, "TheWiredNomad");
+
+            function isValidSpeed(download, upload, ping) {
+                if (isNaN(download) || isNaN(upload) || isNaN(ping)) {
+                    return false;
+                }
+                if (download < 10 || upload < 5 || download > 5000 || upload > 2000) {
+                    return false;
+                }
+                if (ping < 1 || ping > 1000) {
+                    return false;
+                }
+                return true;
+            }
+
+						document.getElementById('contact-form').addEventListener('submit', function (event) {
+						    event.preventDefault();
+
+						    // Show the loading indicator and disable the submit button immediately
+						    document.getElementById('loading-indicator').style.display = 'block';
+						    document.getElementById('submit-button').disabled = true;
+
+						    const city = document.getElementById('city').value.charAt(0).toUpperCase() + document.getElementById('city').value.slice(1);
+						    const country = document.getElementById('country').value.charAt(0).toUpperCase() + document.getElementById('country').value.slice(1);
+						    const listing_link = document.getElementById('link').value;
+						    const latitude = parseFloat(document.getElementById('latitude').value);
+						    const longitude = parseFloat(document.getElementById('longitude').value);
+						    const vpnCheckbox = document.getElementById('vpn');
+						    const vpn = vpnCheckbox.checked ? 'yes' : 'no';
+						    const downloadSpeed = parseInt(document.getElementById('internet-download-speed').value);
+						    const uploadSpeed = parseInt(document.getElementById('internet-upload-speed').value);
+						    const pingSpeed = parseInt(document.getElementById('internet-ping-speed').value);
+						    const websiteUsed = document.getElementById('website-used').value;
+						    const dropoutsElement = document.querySelector('input[name="dropouts"]:checked');
+						    const dropouts = dropoutsElement ? dropoutsElement.value : null;
+						    const additionalComments = document.getElementById('additional-comments').value;
+						    const openLanPortsElement = document.querySelector('input[name="open-lan-ports"]:checked');
+						    const openLanPorts = openLanPortsElement ? openLanPortsElement.value : null;
+						    const ethernetLength = document.getElementById('ethernet-length').value;
+						    const linkParts = listing_link.split('?');
+						    const cleanLink = linkParts[0];
+
+						    var linkInput = document.getElementById('link-to-test');
+						    if (linkInput.value.trim()) {
+						        const link = linkInput.value.trim();
+						        if (
+						            !link.startsWith('https://openspeedtest.com/') &&
+						            !link.startsWith('https://www.speedtest.net/') &&
+						            !link.startsWith('https://speedof.me/') &&
+						            !link.startsWith('https://www.speedof.me/') &&
+						            !link.startsWith('https://imgur.com/')
+						        ) {
+						            alert('Invalid link. Proceed with form submission and contact admin for verification assistance.');
+						            link = "";
+						        }
+						    }
+
+						    if (!dropouts) {
+						        showDropoutsPopup();
+						        document.getElementById('loading-indicator').style.display = 'none';
+						        document.getElementById('submit-button').disabled = false;
+						        return;
+						    }
+
+						    fetch('https://us-central1-thewirednomad.cloudfunctions.net/linkExists', {
+						        method: 'POST',
+						        body: JSON.stringify({ cleanLink }),
+						        headers: {
+						            'Content-Type': 'application/json',
+						        },
+						        mode: 'cors',
+						    })
+						    .then(response => {
+						        if (!response.ok) {
+						            throw new Error(`HTTP error! Status: ${response.status}`);
+						        }
+						        return response.json();
+						    })
+						    .then(results => {
+						        const linkAlreadyExists = results.exists;
+						        if (linkAlreadyExists) {
+						            alert('Link already exists. Email contact@thewirednomad.com for assistance.');
+						            document.getElementById('loading-indicator').style.display = 'none';
+						            document.getElementById('submit-button').disabled = false;
+						        } else {
+						            if (city.trim() === '' || country.trim() === '') {
+						                alert('Please fill out the City/Country fields.');
+						                document.getElementById('loading-indicator').style.display = 'none';
+						                document.getElementById('submit-button').disabled = false;
+						                return;
+						            }
+
+						            let fieldName = 'defaultLink';
+						            const linkMapping = {
+						                'airbnb': 'airbnbLink',
+						                'flatio': 'flatioLink',
+						                'nomadstays': 'nomadstaysLink',
+						                'nomadico': 'nomadicoLink'
+						            };
+
+						            for (const [key, value] of Object.entries(linkMapping)) {
+						                if (cleanLink.includes(key)) {
+						                    fieldName = value;
+						                    break;
+						                }
+						            }
+
+						            var isHost = document.querySelector('input[name="guest-host"]:checked').value === 'host';
+
+						            var linkValidation = {
+						                'airbnb': /^https?:\/\/(?:www\.)?airbnb\.com\/rooms\/\d+(?:\?.*)?$/,
+						                'flatio': /^https?:\/\/(?:www\.)?flatio\.com\/rent\/apartment\/[\w-]+(?:\?.*)?$/,
+						                'nomadstays': /^https?:\/\/(?:www\.)?nomadstays\.com\/stay\/[\w-]+(?:\?.*)?$/,
+						                'nomadico': /^https?:\/\/(?:www\.)?nomadico\.io\/[\w-]+(?:\?.*)?$/
+						            };
+
+						            var isValidLink = false;
+						            for (const regex of Object.values(linkValidation)) {
+						                if (regex.test(listing_link)) {
+						                    isValidLink = true;
+						                    break;
+						                }
+						            }
+
+						            if (!isValidLink) {
+						                alert("Invalid link format. Please provide a valid Airbnb link.");
+						                document.getElementById('loading-indicator').style.display = 'none';
+						                document.getElementById('submit-button').disabled = false;
+						                return;
+						            }
+
+						            if (!isValidSpeed(downloadSpeed, uploadSpeed, pingSpeed)) {
+						                alert('Sorry, one or more of your speeds is invalid or too slow.');
+						                document.getElementById('loading-indicator').style.display = 'none';
+						                document.getElementById('submit-button').disabled = false;
+						                return;
+						            }
+
+						            const timestamp = new Date();
+						            let dataToSend = {
+						                [fieldName]: cleanLink,
+						                verifiedLink: document.getElementById('link-to-test').value,
+						                city: city,
+						                country: country,
+						                vpn: vpn,
+						                downloadSpeed: downloadSpeed,
+						                uploadSpeed: uploadSpeed,
+						                pingSpeed: pingSpeed,
+						                jitterSpeed: null,
+						                websiteUsed: websiteUsed,
+						                dropouts: dropouts,
+						                additionalComments: additionalComments,
+						                openLanPorts: openLanPorts,
+						                ethernetLength: ethernetLength,
+						                timestamp: timestamp.getTime(),
+						                isHost: isHost,
+						                latitude: latitude,
+						                longitude: longitude
+						            };
+
+						            if (fieldName === 'nomadstaysLink') {
+						                dataToSend.jitterSpeed = pingSpeed;
+						                dataToSend.pingSpeed = null;
+						            }
+
+						            fetch('https://us-central1-thewirednomad.cloudfunctions.net/submitForm', {
+						                method: 'POST',
+						                body: JSON.stringify(dataToSend),
+						                headers: {
+						                    'Content-Type': 'application/json'
+						                },
+						                mode: 'cors',
+						            })
+						            .then(response => {
+						                if (!response.ok) {
+						                    throw new Error(`HTTP error! Status: ${response.status}`);
+						                }
+						                return response.text();
+						            })
+						            .then(data => {
+						                Swal.fire({
+						                    title: 'Thank you for your feedback!',
+						                    icon: 'success',
+						                    confirmButtonColor: '#3085d6'
+						                });
+						                document.getElementById('contact-form').reset();
+						                clearRadioButtons();
+						                document.getElementById('submit-button').disabled = false;
+						                document.getElementById('loading-indicator').style.display = 'none';
+						            })
+						            .catch((error) => {
+						                console.error('Error:', error);
+						                alert('An error occurred while submitting your feedback. Please check your internet connection and try again later.');
+						                document.getElementById('loading-indicator').style.display = 'none';
+						                document.getElementById('submit-button').disabled = false;
+						            });
+						        }
+						    })
+						    .catch(error => {
+						        console.error('Error:', error);
+						        alert('An error occurred while checking the link. Please try again later.');
+						        document.getElementById('loading-indicator').style.display = 'none';
+						        document.getElementById('submit-button').disabled = false;
+						    });
+						});
+        });
+    });
+</script>
+<footer class="py-3 my-4">
+    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        <a href="/privacy" class="nav-link px-2" style="color: white;">Privacy Policy</a>
+        <a href="/terms" class="nav-link px-2" style="color: white;">Terms</a>
+    </ul>
+    <p class="text-center" style="color: white; margin-bottom: 0;">© 2024 The Wired Nomad, LLC</p>
+</footer>
+
+
+</body>
+</html>

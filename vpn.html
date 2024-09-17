@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" href="/images/logo.jpg" alt="The Wired Nomad">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="How to setup and self-host a VPN at home with Wireguard or Tailscale using Raspberry Pi or GL.iNet router">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>Digital Nomad VPN Tutorial using Wireguard or Tailscale</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+
+  <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Google+Sans:400,500,700|Google+Sans+Text:400&amp;lang=en">
+  <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans+Text:400&amp;text=%E2%86%90%E2%86%92%E2%86%91%E2%86%93&amp;lang=en">
+  <style>.gm-style-moc{background-color:rgba(0,0,0,.45);pointer-events:none;text-align:center;-webkit-transition:opacity ease-in-out;-o-transition:opacity ease-in-out;transition:opacity ease-in-out}.gm-style-mot{color:white;font-family:Roboto,Arial,sans-serif;font-size:22px;margin:0;position:relative;top:50%;-o-transform:translateY(-50%);transform:translateY(-50%);-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%)}sentinel{}</style>
+  <style>.gm-style img{max-width: none;}.gm-style {font: 400 11px Roboto, Arial, sans-serif; text-decoration: none;}</style>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+  <meta name="theme-color" content="#4DBA87">
+  <meta name="apple-mobile-web-app-capable" content="no">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="The Wired Nomad">
+  <meta name="msapplication-TileColor" content="#000000">
+  <link href="https://www.googletagmanager.com" rel="preconnect">
+  <meta http-equiv="origin-trial" content="As0hBNJ8h++fNYlkq8cTye2qDLyom8NddByiVytXGGD0YVE+2CEuTCpqXMDxdhOMILKoaiaYifwEvCRlJ/9GcQ8AAAB8eyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3MTk1MzI3OTksImlzU3ViZG9tYWluIjp0cnVlfQ==">
+  <meta http-equiv="origin-trial" content="AgRYsXo24ypxC89CJanC+JgEmraCCBebKl8ZmG7Tj5oJNx0cmH0NtNRZs3NB5ubhpbX/bIt7l2zJOSyO64NGmwMAAACCeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3MTk1MzI3OTksImlzU3ViZG9tYWluIjp0cnVlfQ==">
+
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-N2NDY92YQ0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-N2NDY92YQ0');
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8109784195848483"
+     crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        header {
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin: 0;
+        }
+
+        article {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            overflow-y: auto; /* This enables scrolling for the article section */
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        a {
+            color: #0077cc;
+            text-decoration: none;
+        }
+
+        ul {
+            list-style: disc;
+            margin-left: 20px;
+        }
+
+        h3 {
+            font-size: 20px;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        h4 {
+            font-size: 18px;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        pre code {
+            display: block;
+            padding: 10px;
+            background-color: #f5f5f5;
+            font-size: 14px;
+            border-radius: 5px;
+        }
+
+        code {
+            font-family: Consolas, monospace;
+        }
+
+      </style>
+
+</head>
+<body>
+  <!-- Navbar starts here -->
+  <div id="app" data-v-app="">
+     <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container">
+           <a href="/" class="router-link-active router-link-exact-active navbar-brand d-flex align-items-center" aria-current="page">
+             <div width="30" height="24" class="d-flex align-items-center justify-content-center">
+               <img src="/images/logo-1.png" alt="The Wired Nomad" width="30" height="24">
+             </div>
+             <span class="h3 m-0">&nbsp; The Wired Nomad</span>
+           </a>
+           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+               <span class="navbar-toggler-icon"></span>
+           </button>
+           <div class="collapse navbar-collapse" id="navbarNav">
+               <ul class="navbar-nav ml-auto">
+                       <a class="nav-link" href="index.html">
+                           <i class="fas fa-home"></i> Home
+                       </a>
+                       <a class="nav-link" href="submit.html">
+                           <i class="fas fa-plus-square"></i> Submit
+                       </a>
+                       <a class="nav-link" href="view.html">
+                           <i class="fas fa-map-marker"></i> View
+                       </a>
+                      <a class="nav-link" href="faq.html">
+                          <i class="fas fa-question-circle"></i> FAQ
+                      </a>
+                      <a class="nav-link" href="tiers.html">
+                          <i class="fas fa-server"></i> Tiers
+                      </a>
+                      <div class="dropdown">
+                          <button class="btn btn-secondary dropdown-toggle" type="button" id="vpnDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i class="fas fa-info-circle"></i> Info
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="vpnDropdown">
+                              <a class="dropdown-item" href="vpn.html">VPN Guide</a>
+                              <a class="dropdown-item" href="comparison.html">VPN Comparison</a>
+                              <a class="dropdown-item" href="trading.html">Nomad Trading</a>
+                              <a class="dropdown-item" href="tradingclub.html">Trading Club</a>
+                              <a class="dropdown-item" href="https://docs.google.com/spreadsheets/d/1WkCWMMnjqzjLt4whpH-s73vdqdxrOJB9fTnFouStsGk/edit?usp=sharing" target="_blank">Nomad Directory</a>
+                              <a class="dropdown-item" href="nomadguides.html">Nomad Guides</a>
+
+                              <!-- Add more options here as needed -->
+                          </div>
+                      </div>
+               </ul>
+           </div>
+       </nav>
+        </div>
+     </div>
+    <header>
+        <h1>How to Use a Tailscale VPN for Remote Work and Travel</h1>
+    </header>
+    <article>
+      <h2> Introduction </h2>
+        <p>Remote work has taken off since the COVID-19 pandemic and further spawned what some refer to as “digital nomads”. Many have begun to realize that for some positions, coming into the office is actually not necessary at all and perhaps even less productive than working from home. Moreover, it’s becoming apparent to people that they don’t necessarily need to stay at home every single day of the year. For some, that 12 days (or even 24 days) of PTO is not enough.</p> <p> So, why not switch it up and work from somewhere new, whether that be another state in the U.S. or a whole new country?</p>
+      <h2> Why a self-hosted VPN? </h2>
+        <p>Most companies have I.T. departments that monitor things like IP addresses and thus your location(s). One of the reasons for this monitoring is to ensure foreign intruders are detected and thwarted appropriately. Obviously it’s no one’s business where you’re working from, and all that really matters (and what your boss cares about) is that the work gets done. And so, the way we can appear somewhere that we truly aren’t is by using a VPN (virtual private network). But not just any VPN… you need to self-host your own VPN at your home. Developed I.T. departments will have software to detect commercial VPN providers by referencing a large list of pre-known IP addresses from companies like NordVPN. It's also good to tunnel your traffic to avoid malicious snooping. You may also choose to host the server (or even a backup) at a nearby family member's house, wherever you can achieve the fastest internet speeds.
+        </p>
+        <h2> How? </h2>
+        <p> You will use your own travel router between your personal/work device and the local Airbnb/hotel’s internet router. On the travel router, you will use <a href="https://www.tailscale.com" target="_blank">Tailscale</a> or <a href="https://www.wireguard.com/" target="_blank">Wireguard</a> as well as on the VPN server at home to host the “exit node” (Tailscale). Technically, Tailscale is not a VPN, but rather an overlay network where we route the internet traffic through our own IP at home. <strong>Wireguard</strong> is the VPN protocol, which Tailscale uses. Using plain Wireguard is the <strong>preferred VPN method</strong>. </p>
+        <p><strong><a href="https://docs.gl-inet.com/router/en/4/tutorials/build_your_own_wireguard_home_server_with_two_glinet_routers/">Wireguard GL.iNet Setup Tutorial</a></strong></p>
+        <p><strong><a href="https://youtu.be/qLEj9zoiYRs?si=QWUWdgS99e_W4-DQ">Video: How to Set Up a WireGuard Server on a GL.iNet Router</a></strong></p>
+        <p><strong><a href="https://youtu.be/VIRcjB9k62A?si=gEhN7Ka7VT7A-NsM">Video: How to Set Up a WireGuard Client on a GL.iNet Router</a></strong></p>
+        <p>However, given that a regular Wireguard server has the ability to be blocked or not work at all for some users (those with home networks behind CGNAT), Tailscale is the option that will be described here. </p>
+        <p>Note that in some cases, the connection to your Tailscale server will not be direct, but will use one of Tailscale's <strong><a href="https://tailscale.com/kb/1232/derp-servers" target="_blank">"DERP" relay servers</a></strong>, which could add some latency to your connection. Additionally, in the case of a DERP-relayed connection, if one were to run a "traceroute" on your connection, they would see the public DERP relay server IP address, since it is routing your traffic in the <i>middle</i>. This IP obviously belongs to a commercial/enterprise IP block, but it's only visible by running a traceroute which is able to see every "hop" your traffic makes. Whether or not your employer's telemetry would pick up on this is what would determine whether this method would still work for you or not. There are a few <a href="https://tailscale.com/kb/1082/firewall-ports#my-devices-are-using-a-relay-what-can-i-do-to-help-them-connect-peer-to-peer" target="_blank">last ditch effort things</a> you can do to try get peer-to-peer direct connection as opposed to relay servers. For more information on <strong>bare Wireguard vs. Tailscale</strong> and why I use <strong>Wireguard as my primary</strong> and <strong>Tailscale as my backup</strong>, see my <a href="https://thewirednomad.com/comparison" target="_blank">VPN Comparison page</a>.
+        </p>
+
+        <p> <u>A brief technical description on Tailscale:</u> Tailscale IS Wireguard, but with some add-ons. Wireguard is the VPN protocol. You should read about Wireguard's <a href="https://www.wireguard.com/known-limitations/" target="_blank">known limitations</a>, specifically the fact that it is subject to detection via Deep Packet Inspection (DPI) via its packet headers. This is not really a concern for us since we use a travel router which doesn't allow the Wireguard packet headers to be seen by the work VPN client's DPI. Additionally, DPI still isn't used that often except for sophisticated I.T. departments such as ones in FAANG companies. A few nice advantages of Tailscale are that we don't have to port forward on our home router nor use a dynamic DNS (DDNS) service to prevent a dynamic public IP at home from killing our server connection; Tailscale handles all of this for us. While using bare Wireguard is still recommended and will have better performance (throughput) all of the time, <strong>reasons to choose Tailscale include:</strong> </p>
+        <p>
+        <ul> The local firewall you connect to while traveling blocks your Wireguard port (default: 51820) </ul>
+        <ul> Your home ISP uses CGNAT (ex. Starlink internet), which would NOT allow bare Wireguard to work. Cellular network providers also often use CGNAT. In cases where either end of the connection uses CGNAT, Tailscale would still work, but it would use the aforementioned public DERP relay servers (reducing your throughput unfortunately due to throttling). </ul>
+        <ul> You do not have admin access to the primary ISP router, and thus cannot port forward. </ul>
+        </p>
+        <p>
+        Now, there is a way to <a href="https://sleeplessbeastie.eu/2023/01/06/how-to-install-tailscale-derp-server/">host your own DERP relay server</a>, but it is a bit complex for someone inexperienced with networking and web hosting.
+      </p>
+        <p>NOTE: IF your work laptop uses Zscaler or Cisco Umbrella for example, you will be forced through these DERP relay servers and thus have a severely reduced internet speed and increased latency. For more information regarding VPN compatability with Tailscale go
+          <a href="https://tailscale.com/kb/1181/firewalls#firewall-compatibility-and-workarounds">here</a>. For an alternative VPN method (requires port forwarding) to ensure a direct connection and fast speeds is to follow this <a href="https://techrelay.xyz/post/nomad-vpn/">guide</a> to setup a Wireguard VPN instead. </p>
+
+        <p>Before I continue with the technical implementation, a quick disclaimer: <i>I am not liable for any troubles you cause yourself or your company including but not limited to: termination of employment due to policy violation, failure to obey tax compliance laws, protection of customer data, country data requirements in your respective country. </i>
+        </p>
+        <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*VJLLg3MG-NQ_sQklT0Kx4w.jpeg"
+             style="max-width: 100%; height: auto; margin-top: 10px; margin-bottom: 10px;"
+             alt="Raspberry Pi 4B Tailscale Server Exit Node">
+        <h2>Equipment Needed:</h2>
+        <ul>
+            <li><strong>Server:</strong>
+                <a href="https://www.amazon.com/dp/B0CVR1LP7G?coliid=I9EYXXN3Q775R&colid=VPS2OWUJESDL&th=1&linkCode=ll1&tag=thewirednom08-20&linkId=fe5fc00fd330c89adc8d710718aadfdc&language=en_US&ref_=as_li_ss_tl">Raspberry Pi 4B or 5</a> (or any Linux “thin client” will do, $50–100).
+                <br>*OR, you can now use <a href="https://tailscale.com/blog/apple-tv/#:~:text=With%20a%20Tailscale%20exit%20node,you%20can%20see%20from%20home" target="_blank">Apple TV</a> to host an exit node!*
+            </li>
+            <li><strong>Server (<i>alternative</i>):</strong>
+                <a href="https://www.amazon.com/GL-iNet-Security-Work-VPN-Cascading-Aluminium/dp/B0BQMJDDYR?crid=3QS0DF9T52T39&dib=eyJ2IjoiMSJ9.-Nc7SMHeYKCl1PZ3gJBpdXlvJaeO4cRZaWRIDymudKMnQpTqKrQnVHM5-gyCqWOFE_SUl4Vtv1wfBnYdAzVOUQ.PUlX6geN0nIWVfL3iZ1P-8PCcI9HR3_PYhjxjzXQP18&dib_tag=se&keywords=gl+inet+brume+2&qid=1721504511&sprefix=gl+inet+brume+%2Caps%2C171&sr=8-1&linkCode=ll1&tag=thewirednom08-20&linkId=badd8de5a0e7e83f8c252f119822c98e&language=en_US&ref_=as_li_ss_tl">GL.iNet router (recommended model: Brume 2)</a>.
+                <br>Skip to Step 3.5 <br> Note: Tailscale on GL.iNet devices is still in beta release. This is why for the server side, Raspberry Pi is preferred. For a how-to guide on a bare Wireguard VPN server w/ GL.iNet router, click <a href="https://docs.gl-inet.com/router/en/4/tutorials/build_your_own_wireguard_home_server_with_two_glinet_routers/">here</a>.
+            </li>
+            <li><strong>Storage:</strong>
+                <a href="https://www.amazon.com/SanDisk-Extreme-microSDHC-Memory-Adapter/dp/B06XYHN68L?crid=YFLKZTL5ZT4R&dib=eyJ2IjoiMSJ9.MkRm9AvdaRsj06aCr1MvJ8wd0Go8u3imT_rlu_Sdkdht_LXMIVsYxf0kUiAx3Eghr4BpiWN6A-7bPrL5eogedAKlIscQQUFm1AIhqeiEkBk2oZQiakB8m-p9lbAp0eq12CiaE7LW1Wv-hgF-i5OizrW0l4-RpqxVZThpzUA6OfZ4U_r7w_bUZJRgLIFIH0bWKDgqtkBfVmQnITTe-uwdG2o3scl9AOGS182fdLcT2Y8.SYPCtYasergWm_BBi6XZhsLANoAQuumlwV2SXohy_Gk&dib_tag=se&keywords=sandisk+endurance+pro+32gb&qid=1721503884&sbo=RZvfv%2F%2FHxDF%2BO5021pAnSA%3D%3D&sprefix=sandisk+endurance+pro+32gb%2Caps%2C355&sr=8-6&linkCode=ll1&tag=thewirednom08-20&linkId=78135c50ae9203c0e708557312404c42&language=en_US&ref_=as_li_ss_tl">32GB (or larger) micro SD card</a> for Raspberry Pi and a microSD adapter to flash the OS on your personal computer.
+            </li>
+            <li><strong>Travel router:</strong>
+                <a href="https://www.amazon.com/dp/B0BPSGJN7T?coliid=IFSVJV54YMBBZ&colid=VPS2OWUJESDL&th=1&linkCode=ll1&tag=thewirednom08-20&linkId=438afef52a446087587be4c9102d5dd7&language=en_US&ref_=as_li_ss_tl">GL.iNet Beryl AX (~$90)</a>
+            </li>
+            <li><strong>Misc:</strong>
+                <a href="https://www.amazon.com/Apple-Thunderbolt-Gigabit-Ethernet-Adapter/dp/B011K4RKFW?crid=37VTJ99AI4Q09&dib=eyJ2IjoiMSJ9.cYjwW-3GnwnPhgpK5qsvBlRgl15Gfn5RcC0UfUajFWnSMFZA0Zn5cB3G9RYfwYm1eHs6ByRQsk-eBS-yBA2CLdRVlSqRzjQ4RW1QlEeNZ19SE9oJy9BEOK0v7kEnktUP3tfVd8Xtk02uLjBRyFS0yv9fBDbn-TopiZ-8YUS1k0KNgSBXVPoTL7PJpTlmJdhcvqd6DbUtWKtGFPsnQcV5-lVxno-dZmMYi7Bajq4YJIjg3yidG2VcaWvK_dhHzfK9-o8hL5VjYmYqYnwG8x7NJXV3iJoFyJ113luaMfQfzYg.iEQaEBcPRRB9ue6MOMnzASu1VN1fV626ajGPL9x2tV0&dib_tag=se&keywords=ethernet+to+thunderbolt+adapter&qid=1722114018&s=electronics&sprefix=ethernet+to+thunderbol%2Celectronics%2C160&sr=1-4&linkCode=ll1&tag=thewirednom08-20&linkId=22f3bccc452c368d398c95956ccc9ef5&language=en_US&ref_=as_li_ss_tl">Thunderbolt</a> and/or
+                <a href="https://www.amazon.com/gp/product/B0823CB5MT?&linkCode=ll1&tag=thewirednom08-20&linkId=ad94cc7e7e0ca24134a0df426c3ca8a4&language=en_US&ref_=as_li_ss_tl">USB-C</a> to Ethernet adapter for laptop (if required),
+                <a href="https://www.amazon.com/gp/product/B0823CB5MT?&linkCode=ll1&tag=thewirednom08-20&linkId=ad94cc7e7e0ca24134a0df426c3ca8a4&language=en_US&ref_=as_li_ss_tl">2–3 ethernet cables</a> of varying sizes. One cable for <i>Pi <-> Home Router LAN</i>, one cable for <i>Laptop <-> Travel router LAN</i>, and an optional 10ft cable for <i>Travel router WAN <-> Local network router</i> (at your Airbnb, hotel, etc.).
+            </li>
+            <li>(Optional)
+                <a href="https://www.amazon.com/Anker-Portable-Charger-High-Speed-Charging/dp/B0BYP4Y1N8?dib=eyJ2IjoiMSJ9.JWF_e7myf-fhDyCCVnMfdpS9DFpSIyQk1oP_0B9L6NJCFCvHNLCXj-XNpiUq3smXltMpLKttLZS8cwGN5V_tGOMpqoTOq2tvTcY0DHaGrAykV6wGQj0-X-g0nDUSZuNkFvvaq9OAwOXHA4ucpWyqoN7hZCtopoMKSPy4LUaWRIhBOWhstjFw3zM1YJn23sVzH58RsS2kSjTyLJrKJThS2KCk_1pm8-uofu_-3HppII8.uDF8hyxIkE7YTwXPT4lxjonJty8DXoMJnshu96zLsI4&dib_tag=se&keywords=anker%2Bpowercore%2B20000&qid=1721504609&sr=8-1&th=1&linkCode=ll1&tag=thewirednom08-20&linkId=c45057a249abdf9b18ccfb232bf8c780&language=en_US&ref_=as_li_ss_tl" target="_blank">Portable battery</a> for powering your travel router on the go when a wall outlet is not accessible. And a
+                <a href="https://www.amazon.com/Raspberry-Pi-Active-Cooler/dp/B0CLXZBR5P?crid=172MEGLXVQYZ9&dib=eyJ2IjoiMSJ9.yxdTGmMffH2iJhveQSAPuN9iduzk_xvJJCiOCuko7TIGprUM2OEaOVgvLu781wZo5fjs0Zl0dlHYgcfdZcg5TQBATkEZjjCx-RhFG1qW7iqMkGPzLRpxmuDrn2NTBksz0ocGatw8hWSQ2_DdUNqPvNcwO42a9-2VGa8pi7j_8ed_56nESJcIFEqFlInf_Zhd9_OfpBtgzvVj7Rf4nuktxPpKupi6E_Sg8uqwZrrvHYk.zoUEZUWSOn1qSST7JAUbHwZG3mhIELIgBuKwDTEOEYs&dib_tag=se&keywords=raspberry+pi+5+fan&qid=1721504409&sprefix=raspberry+pi+5+fan%2Caps%2C161&sr=8-3&linkCode=ll1&tag=thewirednom08-20&linkId=1183617839bf82d443bca24cc9e5878e&language=en_US&ref_=as_li_ss_tl">fan</a> for your Pi server
+            </li>
+        </ul>
+
+        <p>The following models are compatible with Tailscale: GL-AX1800 (Flint), GL-A1300 (Slate Plus), GL-AXT1800 (Slate AX), GL-MT3000 (Beryl AX), GL-MT2500/GL-MT2500A (Brume 2) and GL-X3000 (Spitz AX).</p>
+        <p>A travel router is needed because we are unable to install 3rd party software, let alone a VPN client, onto our <strong>work machine</strong>. So we will connect the work computer to the travel router like a normal Wi-Fi network, and the router will point everything to our VPN server. Think of the travel router as a repeater that takes your Airbnb/hotel Wi-Fi network and re-broadcasts it to your device. Of course, we will only use a wired ethernet connection from the laptop to the travel router, never Wi-Fi as this can expose our location.</p>
+        <img src="https://cdn-images-1.medium.com/max/6036/1*TcXSZTsgjPxWekAEsLxQkA.jpeg" style="max-width: 100%; height: auto; margin-top: 10px; margin-bottom: 10px;" alt="GL-iNet Beryl AX (MT-3000)">
+        <h2>Basic steps:</h2>
+        <h3><strong>1. Flash your microSD card using the official Raspberry Pi imager on your laptop or desktop.</strong></h3>
+
+        <p><a href="https://www.raspberrypi.com/documentation/computers/getting-started.html" target="_blank"><strong>Raspberry Pi Documentation - Getting started</strong></a><br>
+        <em>The official documentation for Raspberry Pi computers and microcontrollers</em></p>
+
+        <p>Insert the microSD card into your laptop using whatever adapter necessary. Install the official Raspberry Pi Imager and go follow the steps to flash the OS to your microSD. Don't forget these things:</p>
+
+        <ol>
+          <li>Choose Raspberry Pi OS (aka "Raspbian") and select the 64-bit version! (64-bit OS will give you ~44% faster throughput than 32-bit OS)</li>
+          <li>Set hostname to "raspberrypi.local" to make logging in easier than remembering the IP which you set later.</li>
+          <li>Enable SSH in the Advanced Options!</li>
+        </ol>
+
+        <p>Once you finish flashing the microSD, insert it into the Raspberry Pi and power the Pi. Then, attach an Ethernet cable between the Pi and your computer (you may need a Thunderbolt or USB-C to Ethernet adapter). Turn off Wi-Fi on your Mac so we can only connect to the Pi.</p>
+
+        <p>Navigate to your command prompt or terminal (on Mac/Linux), or on Windows open start menu and type "command prompt" and connect to the Pi by running '<code>ssh username@hostname</code>'. Below, we use the default '<code>pi</code>' <em>username</em> and the '<code>raspberrypi.local</code>' <em>hostname</em>. Alternatively, you can use the Pi’s IP for the hostname assuming your laptop has a built-in DHCP server (it should).</p>
+
+        <pre><code>ssh pi@raspberrypi.local
+        </code></pre>
+        <p>or if that doesn't work, use the Pi's IP address:</p>
+        <pre><code>ssh pi@your-Pi-IP-address
+        </code></pre>
+        <p>You can find the Pi IP address a number of ways. One way is to go into Network settings on Mac and view the IPv4 address on the Ethernet connection. Or type "ifconfig" in the terminal.</p>
+        <p>Note that as you type in the password, you will not see the characters show on the screen. This is normal. If you having issues with SSH, it's possible you have a bad cable.</p>
+
+        <p>Once you’ve logged into the Pi via SSH, run the following:</p>
+
+        <pre><code>systemctl enable ssh</pre></code>
+        <pre><code>systemctl start ssh</code></pre>
+
+        <p>These two commands will permanently enable SSH on the Pi and start the service. This really shouldn’t be necessary since the imager should already run this for you, but it doesn’t hurt.</p>
+
+        <p>And lastly, disable Wi-Fi since we don’t need it and to reduce power draw.</p>
+
+        <pre><code>rfkill block wifi
+        </code></pre>
+
+        <p>Simply re-run this command but with “unblock” if you wish to re-enable it ever.</p>
+
+        <h3><strong>2. Configure a static IP for the Raspberry Pi for an ethernet connection to your local network.</strong></h2>
+        <p>First, we need the subnet to match the local internet’s. So, verify whether your router at home uses 192.168.1.x or 10.0.0.x addresses (remember x is only 1-254). To do this, open a terminal window on your laptop connected to the Wi-Fi and type <code>ifconfig</code> and then look for the IPv4 addresses to the right of <code>en0:</code>. Alternatively, go to your network settings and view the IPv4 address. Also, take note of the <strong>router IP</strong>, you will need that in a second.</p>
+        <img src="https://cdn-images-1.medium.com/max/2628/1*fC6vj8rLn9KDvrVL_LcSAw.png" alt="macOS Network Settings" style="max-width: 100%; height: auto; margin-top: 10px; margin-bottom: 10px;">
+        <p>Next, we will modify <code>/etc/network/interfaces</code> and add some code. Use your preferred editor by typing <code>sudo nano /etc/network/interfaces</code> or <code>sudo vi /etc/network/interfaces</code>.</p>
+        <p>Add the below block of code, where “??”, is any number (0–254) that is not a currently used IP on your network. Next, <strong>10.0.0.1</strong> is the IP of the Xfinity home router in my case. Replace this with whatever your router IP. This is set to both the gateway and dns-nameservers entries as shown below. 8.8.8.8 is an additional DNS entry and happens to be Google’s server.</p>
+        <pre><code>
+        #static IP address for eth0
+        auto eth0
+        iface eth0 inet static
+            post-up /sbin/ethtool --set-eee eth0 eee off
+        address 10.0.0.??
+        netmask 255.255.255.0
+        gateway 10.0.0.1
+        dns-nameservers 10.0.0.1 8.8.8.8</code></pre>
+        <p><code>eth0</code> at the top specifies that we are using an ethernet connection to our router’s LAN port. Using an ethernet/wired connection to your home’s internet service ensures the fastest possible speeds.</p>
+        <p>Lastly, <strong>switch to standard Debian networking</strong>:</p>
+        <pre><code>sudo systemctl enable networking</pre></code>
+        <p>Reboot for the changes to take effect.</p>
+        <pre><code>sudo reboot</code></pre>
+        <p>Now, plug the Pi into one of your home router’s LAN port and ensure the green light is blinking.</p>
+
+        <h3><strong>3. SSH into your Raspberry Pi, install Tailscale, and enable exit node</strong></h2>
+        <p>Now that we’ve set a static IP for the Raspberry Pi and connected the Pi to the router, we should be able to access it by using SSH <em>on the local network</em>. Using your laptop (connected to the home Wi-Fi) open a terminal window and type:</p>
+        <pre><code>ssh pi@raspberrypi.local</code></pre>
+        <p>OR</p>
+        <pre><code>ssh pi@static-IP-you-set (ex. 10.0.0.?? or 192.168.1.??)</code></pre>
+        <p>If you are successfully able to access your Pi, then congrats for making it this far! If not, there could be a problem with the IP you set. Go verify your <code>/etc/network/interfaces</code> again.</p>
+        <p>We’re ready to install <strong>Tailscale</strong> on the server to create the VPN, or what Tailscale calls an “exit node”. To install on your Rasp Pi running Linux, simply run the following command:</p>
+        <pre><code>curl -fsSL https://tailscale.com/install.sh | sh</code></pre>
+        <p>If this doesn’t work, then determine the particular OS you are running on the Pi. If you don’t remember, simply run the command below and read the first line of the output:</p>
+        <pre><code>cat /etc/os-release</code></pre>
+        <p>You’ll see the Linux distro name on your Pi. Using this info, try a manual install by following instructions <a href="https://tailscale.com/download/linux" target="_blank">here</a>.</p>
+
+        <p>Once installed, follow the Tailscale documentation in order to set up your exit node. Be sure to select the "Linux" instructions in order to properly configure your Raspberry Pi's operating system. Step 2 and 3 here: <a href="https://tailscale.com/kb/1103/exit-nodes/">https://tailscale.com/kb/1103/exit-nodes/</a><p>
+        <p> NOTE: In Step 2, run it as: <pre><code>sudo tailscale up --advertise-exit-node --accept-routes</pre></code> so that we can allow the GL-iNet's subnets which we will advertise in Step 5. If you missed this, don't worry, you can always run this command again on your Pi later.</p>
+        <p>Once finished, give your <a href="https://login.tailscale.com/admin/machines" target="_blank">Tailscale web admin panel</a> a look-over to confirm everything is configured correctly as the documentation instructs. For example, click the 3 dots button all the to the right of the "raspberrypi" exit node and click on "Edit route settings…" and make sure exit node is switched ON. </p>
+        <img src="https://cdn-images-1.medium.com/max/1600/1*A41ShkLbTp7-9Rp86-K4KQ.png" alt="Raspberry Pi 'Edit route settings..'" style="max-width: 100%; height: auto; margin-top: 10px; margin-bottom: 10px;">
+        <p>Your Tailscale machines page should now show your Raspberry Pi and your Travel Router as such:</p>
+        <img src="https://cdn-images-1.medium.com/max/1600/1*i6zrUFyZmAuHKtPa4qs4eg.png" alt="Admin panel example" style="max-width: 100%; height: auto; margin-top: 10px; margin-bottom: 10px;">
+        <p><strong>Don't forget</strong> to click the 3 dots on the right side for both the Pi and the GL router and <strong>"disable key expiry"</strong> for both the Pi and your GL-iNet router. This is extremely important to ensure we maintain authenticated. For example, if the key expires on the exit node and you are out of the country, you will be unable to regenerate a key without manually being present at the Raspberry Pi.</p>
+        <p>In general, Tailscale documentation is very good so it's good to refer to it often throughout the process.</p>
+
+        <h3><strong>3.5. (ONLY if using GL.iNet router as server/exit node)</strong></h3>
+
+        <p>Plug an ethernet cable between your personal laptop and the GL.iNet server router’s LAN port and make sure your laptop Wi-Fi is turned off. Then, open a browser tab and navigate to the gateway IP addresses that is written on the provided card.</p>
+
+        <p> Next, navigate to the Applications page and at the bottom enable Tailscale. If you don't see Tailscale and/or the installation of the Tailscale plugin fails, try upgrading the firmware on your GL.iNet first. </p>
+
+        <p>Follow the binding instructions here: <a href="https://docs.gl-inet.com/router/en/4/interface_guide/tailscale/">https://docs.gl-inet.com/router/en/4/interface_guide/tailscale/</a>
+
+        <p>Once you've confirmed that you can connect to the GL.iNet router's admin page, open up Terminal (on Mac/Linux) or on Windows open start menu and type "command prompt":</p>
+
+        <ol>
+          <li>SSH into the router by running <code>ssh root@[ip or hostname of router]</code> (e.g. <code>ssh root@192.168.8.1</code>. You can also use its tailnet IP or hostname assuming you’ve already connected it to your Tailscale account as shown later.</li>
+
+          <li>Enter your GL.iNet’s router password and hit enter/return</li>
+          <p> If you receive a "Host key verification failed" message, then run this: <code>ssh-keygen -f "~/.ssh/known_hosts" -R "192.168.8.1"</code> </p>
+          <li> Run this command to install “nano” editor. <code>opkg update && opkg install nano</code>
+
+          <li>Edit the gl_tailscale config file by running <code>sudo nano /usr/bin/gl_tailscale</code></li>
+
+          <li>Scroll down line 73 (as of 4.2.1), which currently reads: <code>/usr/sbin/tailscale up --reset $param --timeout 3s</code></li>
+
+          <li>Add in <code>--advertise-exit-node</code> after <code>tailscale up</code>. It should now read: <code>/usr/sbin/tailscale up --advertise-exit-node --reset $param --timeout 3s</code></li>
+
+          <li>Save and exit by hitting your <code>esc</code> key, and typing Control+X and hitting 'y' then your enter/return key</li>
+
+          <li>Now run these three commands to enable IP forwarding (<strong>Note:</strong> You will also need to run these three lines on the travel router as well!)
+ </li>
+          <p><code>echo 'net.ipv4.ip_forward = 1' | sudo tee -a /etc/sysctl.d/99-tailscale.conf </code></p>
+
+          <p><code> echo 'net.ipv6.conf.all.forwarding = 1' | sudo tee -a /etc/sysctl.d/99-tailscale.conf </code></p>
+
+          <p><code> sudo sysctl -p /etc/sysctl.d/99-tailscale.conf </code></p>
+
+        </ol>
+
+        <p>Restart your GL.iNet router (server) and verify that it’s available as an exit node by connecting back to your local Wi-Fi network checking in the Tailscale devices internet web admin page. You may need to enable it in “route settings”.</p>
+
+        <p> Lastly, connect to your GL.iNet server router on 192.168.8.1 and navigate to the Tailscale page under Applications -> Tailscale. <strong>Enable “Remote Access WAN”</strong>. </p>
+
+        <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*oiuHBHL1kGMzsTVcDK6q3Q.png" alt="GL.iNet server router Tailscale setting" style="max-width: 100%; height: auto; margin-top: 10px; margin-bottom: 10px;">
+
+        <h3><strong>4. Connect to your GL-iNet travel router, enable Tailscale, and configure it to point to your exit node</strong></h2>
+        <p>Once your exit node is live and all settings are correct based on Tailscale documentation, we can configure the travel router.</p>
+        <p>Simply connect an ethernet cable between the powered GL-iNet router’s LAN port and your personal laptop. Then, open a browser and type 192.168.8.1 to see the login screen.</p>
+        <p>Once you’ve logged in, enable the Repeater function on the “Internet” page, and connect the router to your cellphone hotspot or some Wi-Fi network other than the one you’re hosting the Raspberry Pi exit node off of.</p>
+        <p>Next, navigate to the Applications page and at the bottom enable Tailscale. If you don’t see Tailscale and/or the installation of the Tailscale plugin fails, try upgrading the firmware on your GL-iNet first.</p>
+        <p>Follow the binding instructions here: <a href="https://docs.gl-inet.com/router/en/4/interface_guide/tailscale/" target="_blank">Tailscale - GL.iNet Router Docs 4</a></p>
+        <p>Enabling Tailscale will allow us to force all Internet traffic coming into the router (i.e., from your work laptop) to pass through your VPN server (aka “exit node”) back at home.</p>
+        <p>Once you’re finished with this step, you can confirm the router has Tailscale installed and connected to your account by viewing the Tailscale web admin page to see “Connected” with the green dot as shown below:</p>
+        <img src="https://cdn-images-1.medium.com/max/2000/1*-_WXUx62LFkz4HT-2-hstg.png" alt="Tailscale device status (web admin page)" style="max-width: 100%; height: auto; margin-top: 10px; margin-bottom: 10px;">
+        <p>Lastly, enable “Custom Exit Nodes” and select your exit node IP and apply.</p>
+        <img src="https://cdn-images-1.medium.com/max/2000/1*NotPq6BFLwARUb9JQealEA.png" alt="Custom Exit Nodes Configuration">
+        <h3><strong>5. Adding subnets on the GL-iNet router</strong></h2>
+        <p>OK, so you’ve enabled Tailscale on the GL-iNet router in the Applications section. Now, in order to allow our work laptop (or any device) connected to the router’s LAN to access Tailscale, we must add subnets. It might sound a little tricky at first, but it’s very easy.</p>
+        <p>First, SSH into your <strong>travel router</strong>. Remember to use the password to your router this time, not your laptop or Raspberry Pi password. Open a Terminal window on your Mac or Linux laptop and type:</p>
+        <p>Before running the commands shown in the below documentation, you will need to first ssh into your router. Remember to use the password to your <strong>travel router</strong> this time, not your laptop or Raspberry Pi password. To do this, open a Terminal window on your Mac or Linux laptop and type:</p>
+        <pre><code>ssh root@gl-mt3000</code></pre>
+        <p> where “gl-mt3000” is the hostname of the GL-iNet router YOU are using. </p>
+        <p>Alternatively, you can use the router’s <i>Tailscale</i> IP address instead. It should look like 100.x.y.z</p>
+        <pre><code>ssh root@your-ROUTER-Tailscale-IP</pre></code>
+
+        <p>Once logged into the router via SSH, we will use <a href="https://tailscale.com/kb/1019/subnets/" target="_blank">this Tailscale documentation</a> to add subnets. I’ve included the relevant commands for your convenience below.</p>
+
+        <p><strong>1. Advertise the IPv4 subnet routes for this GL-iNet router (Beryl AX):</strong></p>
+
+        <pre><code>tailscale up --advertise-routes=192.168.8.0/24 --accept-routes</code></pre>
+
+        <p><strong>NOTE:</strong> There is a small chance you may have a subnet conflict, and you will need to use something other than "192.168.8.0/24" above such as "192.168.10.0/24", etc.</p>
+        <p><strong>2. Enable the subnet routes from the Tailscale web admin console.</strong></p>
+
+        <p>Open the <a href="https://login.tailscale.com/admin/machines" target="_blank">Machines</a> page of the admin console, and locate the GL-iNet router. Click the 3 dots button on the right side and “Edit route settings…”</p>
+
+        <p>Click Approve all, so that Tailscale distributes the subnet routes to the rest of the nodes on your Tailscale network. Alternatively, you can approve the route individually by clicking the toggle to the left of the route.</p>
+
+        <p>Once you’ve enabled subnets, you should verify that the “edit route settings” for your GL-iNet router in the Tailscale web admin look like this:</p>
+
+        <img src="https://cdn-images-1.medium.com/max/2036/1*Pd7TT6juNq7OPBxhaa_gtQ.png" alt="Example GL-iNet router “Edit route settings” page" style="max-width: 100%; height: auto; margin-top: 10px; margin-bottom: 10px;">
+        <p><strong>If you are still having troubles try this: </strong>Set your Firewall settings as described <a href="https://forum.openwrt.org/t/help-to-configure-tailscale-as-a-proxy-service/142428/2">here </a>located in | System | Advanced Settings | Network | Firewall.</p>
+
+        <h3><strong>6. Confirm your client device (ex. work computer) is showing your home IP</strong></h2>
+        <p>Now that you’ve turned on the Tailscale exit node on your travel router, connect your client laptop to the travel router using the Repeater function. Then run the following Linux command:</p>
+        <pre><code>dig -4 +short myip.opendns.com @resolver1.opendns.com</code></pre>
+        <p>If that command doesn't output anything, then try this one: </p>
+        <pre><code>curl ifconfig.co</pre></code>
+        <p>Obviously if you’re on your work computer with Windows and cannot use the above Linux command, then alternatively you can just go to any web browser and navigate to <a href="http://whatsmyip.com" target="_blank">whatsmyip.com</a> to view your IPv4 address from back home.</p>
+        <p>Remember that the maximum DOWNLOAD speed you will be able to achieve at your work computer when connected to the Tailscale exit node will be your home internet’s UPLOAD speed. If this doesn’t make sense, try drawing out on a piece of paper the connection including acknowledgements/requests between your client computer and the Internet (via your exit node).</p>
+
+        <hr>
+
+        <h3><strong>Recommended DNS Settings</strong></h3>
+        <p> For the server GL.iNet router, you may use your ISP or server's DNS servers by setting Mode: Automatic, or set Mode: Manual to use Google or Cloudflare DNS servers (recommended for Tailscale). Encrypted works too if it’s compatible with your equipment, but it’s not necessary. </p>
+        <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*naP3M4s26MdMJxOPGM1FPg.png" alt="Wireguard server router DNS settings" style="max-width: 100%; height: auto; margin-top: 10px; margin-bottom: 10px;">
+        <p><strong>Don't forget</strong> you will also need to enable "Remote Access LAN" in the Global Options of the server router on the VPN Dashboard page. </p>
+        <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*FXIMuiOROWAliz19yKzadw.png" alt="Example VPN Server Page (your Tunnel Address may be different)" style="max-width: 100%; height: auto; margin-top: 10px; margin-bottom: 10px;">
+        <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*Wqz6fIs-iDefkqtkhCw1HQ.png" alt="Global Options (Server)" style="max-width: 100%; height: auto; margin-top: 10px; margin-bottom: 10px;">
+        <p> For the client GL.iNet travel router, you should use your Wireguard server’s IP address in the profile config. To edit the profile config, go to Wireguard Client and edit the “DNS = ” line to equal your server IP (ex. 10.0.0.1).</p>
+        <p> Then, set the DNS mode to “Automatic”. This uses the DNS servers configured on your Wireguard server and ensures your server router’s DNS cache is checked before sending the DNS requests to whatever server you chose. </p>
+        <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*5CzXEjnlCstdbc9lo3D63Q.png" alt="Wireguard travel router DNS settings" style="max-width: 100%; height: auto; margin-top: 10px; margin-bottom: 10px;">
+        <p>For <strong>Tailscale</strong> setups, change the travel router DNS settings above to Manual and add Cloudflare and/or Google servers.</p>
+
+
+
+        <h3><strong>Manually upgrade Tailscale version (using smaller size install)</strong></h3>
+
+        <p>An awesome admin over on the GL.iNet forum created a super useful script to force a Tailscale update to the GL.iNet routers for cases where you may be limited on drive space. In most cases, the router's drive space should be fine.</p>
+
+        <p><a href="https://forum.gl-inet.com/t/script-update-tailscale-on-nearly-all-devices/37582">https://forum.gl-inet.com/t/script-update-tailscale-on-nearly-all-devices/37582</a></p>
+
+        <p>Simply SSH into your routers and run this command (make sure your router has an internet connection) and follow the prompts:</p>
+
+        <pre><code>wget -O update-tailscale.sh https://raw.githubusercontent.com/Admonstrator/glinet-tailscale-updater/main/update-tailscale.sh && sh update-tailscale.sh
+        </code></pre>
+
+        <h3><strong>Additional (mandatory) Tips</strong></h3>
+
+        <ol>
+            <li>Turn off Wi-Fi, Bluetooth, and location services on your laptop. Connect your client computer to the travel router via Ethernet only.</li>
+            <li>Set your system clock to the time zone you are pretending to be in.</li>
+            <li>If you are using a corporate phone, turn off cellular data, Wi-Fi, Bluetooth, and location services. Don't worry, you can still use your Authenticator with work account sign-ins, since it does not require an Internet connection. Additionally, don't forget you may use your <strong>personal</strong> phone as a cellular hotspot as a primary or secondary/failover source of Internet by connecting it with your travel router. </li>
+            <li>Maintain a strict wall between your work and personal devices. Your work device should not have access to any of your personal accounts, including your system-level Microsoft account or Apple ID. Do not do personal surfing or chatting on your work device.</li>
+        </ol>
+
+        <h4> If you still need help: </h4>
+        <p> See our <a href="https://thewirednomad.com/tiers">Tiers</a> page (Silver Tier) to request tech support and we'll be happy to get you up and running!
+    </article>
+    <!-- PayPal Donation Button -->
+<div style="text-align: center; margin-top: 30px;">
+  <div id="donate-button-container">
+  <div id="donate-button"></div>
+  <script src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js" charset="UTF-8"></script>
+  <script>
+  PayPal.Donation.Button({
+  env:'production',
+  hosted_button_id:'EPFSJZUME3BCU',
+  image: {
+  src:'https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif',
+  alt:'Donate with PayPal button',
+  title:'PayPal - The safer, easier way to pay online!',
+  }
+  }).render('#donate-button');
+  </script>
+  </div>
+ </div>
+ <footer class="py-3 my-4">
+   <footer class="py-3 my-4">
+       <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+           <a href="/privacy" class="nav-link px-2" style="color: white;">Privacy Policy</a>
+           <a href="/terms" class="nav-link px-2" style="color: white;">Terms</a>
+       </ul>
+       <p class="text-center" style="color: white; margin-bottom: 0;">© 2024 The Wired Nomad, LLC</p>
+   </footer>
+
+
+</body>
+</html>
